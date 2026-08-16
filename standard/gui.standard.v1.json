@@ -60,9 +60,14 @@
       "requirement": "When projects exist, present org filter, project list, then project detail with tickets/artifacts. IA order preference: system chat → account → integrations → … → projects → organization registers."
     },
     {
+      "id": "domain-vs-presentation",
+      "name": "Domain tabs vs presentation views",
+      "requirement": "Top-nav tab (URL tab=) identifies one content domain. View-switch (URL view=) changes presentation or create mode only (cards|table|list|matrix|kanban|agenda|…|add|import). Unrelated domains MUST NOT share one tab behind fake view modes — split into separate tabs (e.g. integrations vs mcp vs a2a) or use nested filters (registry=, tag=, filter=, org=)."
+    },
+    {
       "id": "connector-registry",
       "name": "Connector registry filters",
-      "requirement": "Connector catalogs support tags, text filter, mode switch (e.g. MCP/A2A), and register via the primary Add button (not as a view-switch mode). New entries prepend."
+      "requirement": "MCP and A2A are separate top-level tabs (or a dedicated connectors tab with registry=mcp|a2a). Each uses presentation view-switch plus tag/text filters. Register via the primary Add button (not as a view-switch domain mode). New entries prepend. Do not nest MCP/A2A inside the API integrations catalogue tab."
     },
     {
       "id": "system-chat-surface",
@@ -82,7 +87,7 @@
       "project": "Selected project id",
       "host": "Selected host id",
       "org": "Organization filter",
-      "registry": "Connector registry mode (mcp|a2a|…)",
+      "registry": "Domain filter under a tab (organization: clients|contacts|contracts|support; connectors legacy: mcp|a2a when not top-level tabs)",
       "tag": "Active tag filter",
       "filter": "Free-text filter"
     }
