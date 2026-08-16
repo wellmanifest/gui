@@ -96,20 +96,26 @@
     "viewSwitch": {
       "type": "object",
       "additionalProperties": false,
-      "required": ["selector", "modes", "createLast"],
+      "required": ["selector", "modes", "createControl"],
       "properties": {
         "selector": { "$ref": "#/$defs/cssSelector" },
         "modes": {
           "type": "array",
           "minItems": 1,
           "items": { "$ref": "#/$defs/viewMode" },
-          "uniqueItems": true
+          "uniqueItems": true,
+          "description": "Presentation modes only — create/import/add/register belong on createControl."
         },
-        "createLast": { "const": true },
-        "createModes": {
-          "type": "array",
-          "items": { "$ref": "#/$defs/createLikeMode" },
-          "uniqueItems": true
+        "createControl": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["placement", "mode"],
+          "properties": {
+            "placement": { "const": "primary-button-left" },
+            "toolbarSelector": { "$ref": "#/$defs/cssSelector" },
+            "buttonSelector": { "$ref": "#/$defs/cssSelector" },
+            "mode": { "$ref": "#/$defs/createLikeMode" }
+          }
         }
       }
     },

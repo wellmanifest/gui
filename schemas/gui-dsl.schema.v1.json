@@ -37,23 +37,25 @@
       "required": ["schema_ref", "layout", "view_switch", "interaction"],
       "properties": {
         "schema_ref": { "type": "string" },
+        "view_switch": {
+          "type": "object",
+          "required": ["create_control_placement", "create_icon", "url_param"],
+          "properties": {
+            "create_control_placement": { "type": "string", "enum": ["primary-button-left"] },
+            "create_icon": { "type": "string" },
+            "url_param": { "type": "string" }
+          }
+        },
         "layout": {
           "type": "object",
           "required": ["header_selector", "title_selector", "switch_selector", "footer_selector"],
           "properties": {
             "header_selector": { "type": "string" },
             "title_selector": { "type": "string" },
+            "controls_selector": { "type": "string" },
+            "add_button_selector": { "type": "string" },
             "switch_selector": { "type": "string" },
             "footer_selector": { "type": "string" }
-          }
-        },
-        "view_switch": {
-          "type": "object",
-          "required": ["create_mode_position", "create_icon", "url_param"],
-          "properties": {
-            "create_mode_position": { "type": "string", "enum": ["last", "first"] },
-            "create_icon": { "type": "string" },
-            "url_param": { "type": "string" }
           }
         },
         "interaction": {

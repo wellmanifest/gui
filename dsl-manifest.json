@@ -1,7 +1,7 @@
 {
   "$schema": "./schemas/gui-dsl.schema.v1.json",
   "id": "wellmanifest/gui",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "title": "Universal GUI DSL & Verification Contract Standard",
   "status": "canonical",
   "standardOwner": "wellmanifest",
@@ -15,11 +15,13 @@
     "layout": {
       "header_selector": ".item-section-toolbar",
       "title_selector": ".panel-section-title",
+      "controls_selector": ".section-view-toolbar",
+      "add_button_selector": ".section-add-button",
       "switch_selector": ".item-view-switch",
       "footer_selector": ".infinite-scroll-footer"
     },
     "view_switch": {
-      "create_mode_position": "last",
+      "create_control_placement": "primary-button-left",
       "create_icon": "plus",
       "url_param": "view"
     },
@@ -36,8 +38,8 @@
         "description": "Each panel section MUST begin with an .item-section-toolbar header container."
       },
       {
-        "id": "RULE_CREATE_MODE_LAST",
-        "description": "The add/create mode button in SectionViewSwitch MUST be positioned as the last option."
+        "id": "RULE_CREATE_PRIMARY_BUTTON_LEFT",
+        "description": "Create/add MUST be a primary .section-add-button to the left of .item-view-switch inside .section-view-toolbar; view-switch is presentation modes only."
       },
       {
         "id": "RULE_URL_STATE_SYNC",
@@ -53,7 +55,9 @@
     "suite_ref": "tests/testql/gui-standardization.testql",
     "assertions": [
       "GUI_ASSERT_VISIBLE .item-section-toolbar",
-      "GUI_ASSERT_VISIBLE .view-switch",
+      "GUI_ASSERT_VISIBLE .section-view-toolbar",
+      "GUI_ASSERT_VISIBLE .section-add-button",
+      "GUI_ASSERT_VISIBLE .item-view-switch",
       "GUI_ASSERT_VISIBLE .infinite-scroll-footer",
       "GUI_ASSERT_TEXT .panel-section-title",
       "GUI_ASSERT_URL_PARAM tab",

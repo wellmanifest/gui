@@ -28,23 +28,36 @@ assert schema.get("$id") == "https://wellmanifest.com/schemas/gui-dsl/v1"
 assert example.get("schema") == "wellmanifest.gui/dsl/v1"
 assert example.get("placement", {}).get("adopt") == "wellmanifest/gui"
 
-# createLast invariant on every viewSwitch in the example
+CREATE = {"add", "import", "create", "register"}
+
+# identities-style createControl on every viewSwitch in the example
 for surface in example.get("surfaces", []):
     vs = surface.get("viewSwitch")
-    if vs is not None:
-        assert vs.get("createLast") is True, f"{surface.get('id')}: createLast must be true"
-        modes = vs.get("modes") or []
-        create = set(vs.get("createModes") or [])
-        if create:
-            for m in create:
-                assert m in modes, f"{surface.get('id')}: create mode {m} not in modes"
-                assert modes.index(m) == len(modes) - 1 or modes[-1] in create, (
-                    f"{surface.get('id')}: create-like mode must be last in modes"
-                )
+    if vs is None:
+        continue
+    cc = vs.get("createControl")
+    assert cc is not None, f"{surface.get('id')}: createControl required"
+    assert cc.get("placement") == "primary-button-left", (
+        f"{surface.get('id')}: createControl.placement must be primary-button-left"
+    )
+    mode = cc.get("mode")
+    assert mode in CREATE, f"{surface.get('id')}: invalid create mode {mode}"
+    modes = vs.get("modes") or []
+    assert mode not in modes, (
+        f"{surface.get('id')}: create mode {mode} must not appear inside viewSwitch.modes"
+    )
+    assert not (CREATE & set(modes)), (
+        f"{surface.get('id')}: viewSwitch.modes must be presentation-only"
+    )
 
 chat = next((s for s in example["surfaces"] if s.get("kind") == "system-chat"), None)
 assert chat is not None, "example must declare system-chat"
 assert chat["systemChat"]["persistence"]["primary"] in ("account-hosting", "server-config", "env")
+
+principle_ids = {p.get("id") for p in standard.get("principles", [])}
+assert "create-primary-button-left" in principle_ids
+assert "responsive-default-view" in principle_ids
+assert "view-switch-create-last" not in principle_ids
 
 print("ok: wellmanifest/gui validate")
 PY
@@ -52,5 +65,6 @@ PY
 scenario="$root/examples/testql/gui-standardization.testql"
 grep -q 'ADOPT: wellmanifest/gui' "$scenario" || fail "TestQL example missing ADOPT cite"
 grep -q 'SET gui_driver' "$scenario" || fail "TestQL example missing gui_driver"
+grep -q 'section-add-button' "$scenario" || fail "TestQL example missing identities-style Add button assert"
 
 echo "validated $(cat VERSION)"

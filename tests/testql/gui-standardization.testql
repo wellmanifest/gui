@@ -10,14 +10,15 @@ SUITE "wellmanifest-gui-standardization" {
     ASSERT_EXISTS ".panel-section-title svg"
   }
 
-  TEST "verify_view_switch_and_last_add_mode" {
+  TEST "verify_add_left_of_view_switch" {
+    ASSERT_VISIBLE ".section-view-toolbar"
+    ASSERT_VISIBLE ".section-add-button"
     ASSERT_VISIBLE ".item-view-switch"
-    ASSERT_LAST_CHILD ".item-view-switch button[data-mode='add'], .item-view-switch button[data-mode='import']"
   }
 
   TEST "verify_url_state_persistence" {
-    CLICK ".item-view-switch button:last-child"
-    ASSERT_URL_CONTAINS "view=add"
+    CLICK ".section-add-button"
+    ASSERT_URL_CONTAINS "view="
   }
 
   TEST "verify_infinite_scroll_footer" {

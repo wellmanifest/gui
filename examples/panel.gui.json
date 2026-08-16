@@ -2,7 +2,7 @@
   "schema": "wellmanifest.gui/dsl/v1",
   "$schema": "https://wellmanifest.com/schemas/gui-dsl/v1",
   "id": "subactor.www/panel",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "title": "Subactor portal panel (ADOPT example)",
   "placement": {
     "home": "subactor",
@@ -56,10 +56,14 @@
         "icon": "svg-inline"
       },
       "viewSwitch": {
-        "selector": ".view-switch",
-        "modes": ["cards", "table", "list", "add"],
-        "createLast": true,
-        "createModes": ["add"]
+        "selector": ".item-view-switch",
+        "modes": ["cards", "table", "list"],
+        "createControl": {
+          "placement": "primary-button-left",
+          "toolbarSelector": ".section-view-toolbar",
+          "buttonSelector": ".section-add-button",
+          "mode": "add"
+        }
       },
       "infiniteScroll": {
         "footerSelector": ".infinite-scroll-footer",
@@ -77,10 +81,14 @@
         "icon": "svg-inline"
       },
       "viewSwitch": {
-        "selector": ".view-switch",
-        "modes": ["cards", "table", "list", "import"],
-        "createLast": true,
-        "createModes": ["import"]
+        "selector": ".item-view-switch",
+        "modes": ["cards", "table", "list"],
+        "createControl": {
+          "placement": "primary-button-left",
+          "toolbarSelector": ".section-view-toolbar",
+          "buttonSelector": ".section-add-button",
+          "mode": "import"
+        }
       },
       "infiniteScroll": {
         "footerSelector": ".infinite-scroll-footer"
@@ -97,10 +105,14 @@
         "icon": "svg-inline"
       },
       "viewSwitch": {
-        "selector": ".view-switch",
-        "modes": ["cards", "table", "add"],
-        "createLast": true,
-        "createModes": ["add"]
+        "selector": ".item-view-switch",
+        "modes": ["cards", "table"],
+        "createControl": {
+          "placement": "primary-button-left",
+          "toolbarSelector": ".section-view-toolbar",
+          "buttonSelector": ".section-add-button",
+          "mode": "add"
+        }
       },
       "filters": {
         "tagParam": "tag",
@@ -118,7 +130,9 @@
     ],
     "assertSelectors": {
       "toolbar": ".item-section-toolbar",
-      "viewSwitch": ".view-switch",
+      "sectionViewToolbar": ".section-view-toolbar",
+      "addButton": ".section-add-button",
+      "viewSwitch": ".item-view-switch",
       "scrollFooter": ".infinite-scroll-footer",
       "sectionTitle": ".panel-section-title"
     }

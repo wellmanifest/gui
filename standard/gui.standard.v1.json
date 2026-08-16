@@ -2,7 +2,7 @@
   "schema": "wellmanifest.gui/standard/v1",
   "$id": "https://wellmanifest.com/schemas/gui/standard/v1",
   "id": "wellmanifest/gui",
-  "version": 1,
+  "version": 2,
   "status": "canonical",
   "updated": "2026-08-16",
   "title": "GUI standardization (wellmanifest/gui)",
@@ -17,17 +17,27 @@
     {
       "id": "toolbar-header",
       "name": "Section toolbar and title",
-      "requirement": "Every panel section starts with a toolbar containing a section title (with SVG icon), optional helper text, and a view-switch when multiple presentation modes exist."
+      "requirement": "Every panel section starts with a toolbar containing a section title (with SVG icon), optional helper text, and section view controls when multiple presentation modes exist."
     },
     {
       "id": "view-switch-modes",
       "name": "Multi-mode presentation",
-      "requirement": "Data sections support switching presentation modes (cards, table, list, matrix, import, …) without a full page reload."
+      "requirement": "Data sections support switching presentation modes (cards, table, list, matrix, …) without a full page reload. View-switch contains presentation modes only."
     },
     {
-      "id": "view-switch-create-last",
-      "name": "Create/import always last",
-      "requirement": "In a view-switch, the create/import/add/register control MUST be the last control. Do not duplicate a leading '+' character when an SVG plus icon is already present."
+      "id": "create-primary-button-left",
+      "name": "Create via primary Add button",
+      "requirement": "Preferred identities-style layout: a primary Add/create button sits to the LEFT of .item-view-switch on the same toolbar row (.section-view-toolbar). The view-switch MUST NOT include add/import/create/register as a mode. Clicking Add opens the create form and sets the same URL view param (view=add|import|…). Do not keep a duplicate create mode inside the switch. Do not duplicate a leading '+' character when an SVG plus icon is already present. Legacy create-last-in-switch is superseded by this layout."
+    },
+    {
+      "id": "responsive-default-view",
+      "name": "Device-aware default view",
+      "requirement": "When the URL has no explicit view= (and the user has not pinned a view in session storage), auto-select a presentation mode from breakpoints: desktop → table; small tablet or portrait/pivot orientation → list; small mobile/smartphone → panels (alias of cards). Explicit view= always wins. Optional session/local pin must not override an explicit URL. view=panels is accepted as an alias for cards."
+    },
+    {
+      "id": "section-view-toolbar-full-width",
+      "name": "Full-width section controls",
+      "requirement": "The Add + view-switch row (.section-view-toolbar) stretches across the section width so controls read as one bar (flex stretch), not a cramped inline-only cluster."
     },
     {
       "id": "top-down-prepend",
@@ -52,7 +62,7 @@
     {
       "id": "connector-registry",
       "name": "Connector registry filters",
-      "requirement": "Connector catalogs support tags, text filter, mode switch (e.g. MCP/A2A), and register-as-last view-switch mode. New entries prepend."
+      "requirement": "Connector catalogs support tags, text filter, mode switch (e.g. MCP/A2A), and register via the primary Add button (not as a view-switch mode). New entries prepend."
     },
     {
       "id": "system-chat-surface",
@@ -68,11 +78,11 @@
   "url_query_contract": {
     "params": {
       "tab": "Top-level panel section id",
-      "view": "Active view-switch mode (cards|table|list|add|import|…)",
+      "view": "Active presentation or create mode (cards|table|list|add|import|…)",
       "project": "Selected project id",
       "host": "Selected host id",
       "org": "Organization filter",
-      "registry": "Connector registry mode (mcp|a2a|add|…)",
+      "registry": "Connector registry mode (mcp|a2a|…)",
       "tag": "Active tag filter",
       "filter": "Free-text filter"
     }
@@ -81,8 +91,10 @@
     "driver": "gui_driver (playwright or product-equivalent)",
     "required_assertions": [
       "GUI_ASSERT_VISIBLE section toolbar",
-      "GUI_ASSERT_VISIBLE view-switch when multi-mode",
-      "Create/import view-switch control is last",
+      "GUI_ASSERT_VISIBLE .section-view-toolbar when multi-mode",
+      "GUI_ASSERT_VISIBLE primary .section-add-button left of view-switch",
+      "View-switch contains no create/import/add/register mode",
+      "Without view= URL, device default selects table|list|cards/panels",
       "URL reflects tab and view without reload",
       "Infinite-scroll footer present on production collections"
     ],

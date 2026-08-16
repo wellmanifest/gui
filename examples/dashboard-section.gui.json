@@ -6,13 +6,13 @@
   "subtitle": "Struktura organizacyjna najemców, autoryzacje, umowy SLA i audyt spraw wsparcia",
   "toolbar": {
     "icon": "building",
+    "add_button": { "id": "add", "label": "Dodaj Wpis Organizacji", "icon": "plus" },
     "view_switch": [
       { "id": "clients", "label": "Klienci / Najemci", "icon": "building" },
       { "id": "contacts", "label": "Kontakty", "icon": "key" },
       { "id": "contracts", "label": "Umowy & SLA", "icon": "checkSquare" },
       { "id": "support", "label": "Wsparcie / Incydenty", "icon": "shield" },
-      { "id": "matrix", "label": "Macierz Organizacji", "icon": "kanban" },
-      { "id": "add", "label": "+ Dodaj Wpis Organizacji", "icon": "plus" }
+      { "id": "matrix", "label": "Macierz Organizacji", "icon": "kanban" }
     ]
   },
   "url_state": {

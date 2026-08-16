@@ -1,5 +1,14 @@
 # Changelog
 
+## [1.1.0] - 2026-08-16
+### Changed
+- Canonical create UX is **identities-style**: primary Add button left of
+  `.item-view-switch` inside `.section-view-toolbar` (presentation modes only).
+- Supersedes create-last-inside-view-switch; TestQL, DSL example, and validators
+  assert Add-left + `view=add|import` URL sync.
+- Device-aware default view when URL has no `view=`: desktop → table,
+  tablet/portrait → list, smartphone → panels(=cards).
+
 ## [1.0.0] - 2026-08-16
 ### Added
 - Initial release of the `wellmanifest/gui` universal domain pack.

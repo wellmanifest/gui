@@ -9,7 +9,7 @@ Schema: [`schemas/gui-dsl.schema.json`](../schemas/gui-dsl.schema.json)
 {
   "schema": "wellmanifest.gui/dsl/v1",
   "id": "example.product/panel",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "placement": {
     "home": "subactor",
     "shape": "runtime_service",
@@ -35,10 +35,14 @@ Schema: [`schemas/gui-dsl.schema.json`](../schemas/gui-dsl.schema.json)
         "icon": "svg-inline"
       },
       "viewSwitch": {
-        "selector": ".view-switch",
-        "modes": ["cards", "table", "list", "add"],
-        "createLast": true,
-        "createModes": ["add"]
+        "selector": ".item-view-switch",
+        "modes": ["cards", "table", "list"],
+        "createControl": {
+          "placement": "primary-button-left",
+          "toolbarSelector": ".section-view-toolbar",
+          "buttonSelector": ".section-add-button",
+          "mode": "add"
+        }
       },
       "infiniteScroll": {
         "footerSelector": ".infinite-scroll-footer",
@@ -54,17 +58,33 @@ Schema: [`schemas/gui-dsl.schema.json`](../schemas/gui-dsl.schema.json)
 }
 ```
 
-## View-switch ordering
+## Create control + view-switch
 
-Presentation modes first; **create-like modes last**. Validators and TestQL
-must treat any create/import/add/register control that is not last as a failure.
+**Identities style (canonical):** primary Add button left of the view-switch
+inside `.section-view-toolbar`. View-switch holds presentation modes only.
+Clicking Add opens the create form and sets `view` to the create mode id
+(`add` / `import` / …). Do not put create modes inside the switch, and do not
+keep both an Add button and a create mode in the switch.
+
+## Responsive default view
+
+When the shareable URL has **no** `view=` (and the user has not pinned a view in
+session storage), pick a presentation mode from the viewport:
+
+| Device | Default |
+| --- | --- |
+| Desktop | `table` |
+| Small tablet or portrait/pivot | `list` |
+| Smartphone | `panels` (alias of `cards`) |
+
+Explicit `view=` always wins. Optional session pins must not override the URL.
 
 ## URL state
 
 | Param | Meaning |
 | --- | --- |
 | `tab` | Top-level surface |
-| `view` | Active view-switch mode |
+| `view` | Active presentation or create mode |
 | nested (`project`, `host`, `org`, …) | Selection under a tab |
 | `registry` / `tag` / `filter` | Connector catalog controls |
 

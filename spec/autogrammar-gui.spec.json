@@ -5,17 +5,17 @@
     {
       "name": "TOOLBAR_STRUCTURE",
       "pattern": "<div class=\"item-section-toolbar\">...</div>",
-      "required_child_tags": [".panel-section-title", ".section-sub", ".item-view-switch"]
+      "required_child_tags": [".panel-section-title", ".section-view-toolbar", ".item-view-switch"]
     },
     {
-      "name": "VIEW_SWITCH_LAST_ADD_ACTION",
-      "pattern": "<SectionViewSwitch modes={modes} current={view} onChange={setView} />",
-      "constraint": "modes[modes.length - 1].id IN ['add', 'import', 'register', 'create']"
+      "name": "CREATE_PRIMARY_BUTTON_LEFT",
+      "pattern": "<SectionViewToolbar modes={modes} current={view} onChange={setView} />",
+      "constraint": "primary .section-add-button left of .item-view-switch; create ids excluded from switch modes"
     },
     {
       "name": "URL_SYNC",
       "pattern": "updateUrlTabAndView(tab, view)",
-      "constraint": "MUST be executed on every SectionViewSwitch onChange callback"
+      "constraint": "MUST be executed on every SectionViewToolbar onChange callback"
     },
     {
       "name": "NO_UNICODE_EMOJI_CONTROLS",
