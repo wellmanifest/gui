@@ -1,0 +1,26 @@
+# TestQL GUI Standardization Assertion Suite
+# Schema: subactor.testql/v1
+
+SUITE "wellmanifest-gui-standardization" {
+  TARGET "http://127.0.0.1:8781/?action=panel&currency=PLN"
+
+  TEST "verify_header_toolbar_structure" {
+    ASSERT_VISIBLE ".item-section-toolbar"
+    ASSERT_VISIBLE ".panel-section-title"
+    ASSERT_EXISTS ".panel-section-title svg"
+  }
+
+  TEST "verify_view_switch_and_last_add_mode" {
+    ASSERT_VISIBLE ".item-view-switch"
+    ASSERT_LAST_CHILD ".item-view-switch button[data-mode='add'], .item-view-switch button[data-mode='import']"
+  }
+
+  TEST "verify_url_state_persistence" {
+    CLICK ".item-view-switch button:last-child"
+    ASSERT_URL_CONTAINS "view=add"
+  }
+
+  TEST "verify_infinite_scroll_footer" {
+    ASSERT_VISIBLE ".infinite-scroll-footer"
+  }
+}

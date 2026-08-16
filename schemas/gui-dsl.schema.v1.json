@@ -1,0 +1,99 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "wellmanifest/gui/schemas/gui-dsl.schema.v1.json",
+  "title": "Wellmanifest Universal GUI DSL Schema v1",
+  "type": "object",
+  "required": ["id", "version", "grammar", "autogrammar", "testql"],
+  "properties": {
+    "id": {
+      "type": "string",
+      "const": "wellmanifest/gui"
+    },
+    "version": {
+      "type": "string"
+    },
+    "title": {
+      "type": "string"
+    },
+    "status": {
+      "type": "string",
+      "enum": ["canonical", "draft", "deprecated"]
+    },
+    "standardOwner": {
+      "type": "string",
+      "const": "wellmanifest"
+    },
+    "placement": {
+      "type": "object",
+      "required": ["home", "shape", "adopt"],
+      "properties": {
+        "home": { "type": "string", "const": "wellmanifest" },
+        "shape": { "type": "string", "const": "domain_pack" },
+        "adopt": { "type": "string", "const": "wellmanifest/gui" }
+      }
+    },
+    "grammar": {
+      "type": "object",
+      "required": ["schema_ref", "layout", "view_switch", "interaction"],
+      "properties": {
+        "schema_ref": { "type": "string" },
+        "layout": {
+          "type": "object",
+          "required": ["header_selector", "title_selector", "switch_selector", "footer_selector"],
+          "properties": {
+            "header_selector": { "type": "string" },
+            "title_selector": { "type": "string" },
+            "switch_selector": { "type": "string" },
+            "footer_selector": { "type": "string" }
+          }
+        },
+        "view_switch": {
+          "type": "object",
+          "required": ["create_mode_position", "create_icon", "url_param"],
+          "properties": {
+            "create_mode_position": { "type": "string", "enum": ["last", "first"] },
+            "create_icon": { "type": "string" },
+            "url_param": { "type": "string" }
+          }
+        },
+        "interaction": {
+          "type": "object",
+          "required": ["prepend", "url_state_sync", "svg_iconography_strict"],
+          "properties": {
+            "prepend": { "type": "boolean" },
+            "url_state_sync": { "type": "boolean" },
+            "svg_iconography_strict": { "type": "boolean" }
+          }
+        }
+      }
+    },
+    "autogrammar": {
+      "type": "object",
+      "required": ["rules"],
+      "properties": {
+        "rules": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "required": ["id", "description"],
+            "properties": {
+              "id": { "type": "string" },
+              "description": { "type": "string" }
+            }
+          }
+        }
+      }
+    },
+    "testql": {
+      "type": "object",
+      "required": ["suite_ref", "assertions"],
+      "properties": {
+        "suite_ref": { "type": "string" },
+        "assertions": {
+          "type": "array",
+          "items": { "type": "string" }
+        }
+      }
+    }
+  }
+}

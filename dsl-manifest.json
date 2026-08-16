@@ -1,0 +1,63 @@
+{
+  "$schema": "./schemas/gui-dsl.schema.v1.json",
+  "id": "wellmanifest/gui",
+  "version": "1.0.0",
+  "title": "Universal GUI DSL & Verification Contract Standard",
+  "status": "canonical",
+  "standardOwner": "wellmanifest",
+  "placement": {
+    "home": "wellmanifest",
+    "shape": "domain_pack",
+    "adopt": "wellmanifest/gui"
+  },
+  "grammar": {
+    "schema_ref": "subactor.adopt.wellmanifest-gui/v1",
+    "layout": {
+      "header_selector": ".item-section-toolbar",
+      "title_selector": ".panel-section-title",
+      "switch_selector": ".item-view-switch",
+      "footer_selector": ".infinite-scroll-footer"
+    },
+    "view_switch": {
+      "create_mode_position": "last",
+      "create_icon": "plus",
+      "url_param": "view"
+    },
+    "interaction": {
+      "prepend": true,
+      "url_state_sync": true,
+      "svg_iconography_strict": true
+    }
+  },
+  "autogrammar": {
+    "rules": [
+      {
+        "id": "RULE_SECTION_TOOLBAR",
+        "description": "Each panel section MUST begin with an .item-section-toolbar header container."
+      },
+      {
+        "id": "RULE_CREATE_MODE_LAST",
+        "description": "The add/create mode button in SectionViewSwitch MUST be positioned as the last option."
+      },
+      {
+        "id": "RULE_URL_STATE_SYNC",
+        "description": "State changes MUST synchronize reactive query parameters (tab, view) without page reload."
+      },
+      {
+        "id": "RULE_INLINE_SVG_ONLY",
+        "description": "Control icons MUST use inline SVG elements rather than raw Unicode/Emoji characters."
+      }
+    ]
+  },
+  "testql": {
+    "suite_ref": "tests/testql/gui-standardization.testql",
+    "assertions": [
+      "GUI_ASSERT_VISIBLE .item-section-toolbar",
+      "GUI_ASSERT_VISIBLE .view-switch",
+      "GUI_ASSERT_VISIBLE .infinite-scroll-footer",
+      "GUI_ASSERT_TEXT .panel-section-title",
+      "GUI_ASSERT_URL_PARAM tab",
+      "GUI_ASSERT_URL_PARAM view"
+    ]
+  }
+}

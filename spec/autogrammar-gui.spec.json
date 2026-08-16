@@ -1,0 +1,26 @@
+{
+  "spec": "autogrammar.gui/v1",
+  "name": "Wellmanifest Universal GUI Autogrammar Specification",
+  "rules": [
+    {
+      "name": "TOOLBAR_STRUCTURE",
+      "pattern": "<div class=\"item-section-toolbar\">...</div>",
+      "required_child_tags": [".panel-section-title", ".section-sub", ".item-view-switch"]
+    },
+    {
+      "name": "VIEW_SWITCH_LAST_ADD_ACTION",
+      "pattern": "<SectionViewSwitch modes={modes} current={view} onChange={setView} />",
+      "constraint": "modes[modes.length - 1].id IN ['add', 'import', 'register', 'create']"
+    },
+    {
+      "name": "URL_SYNC",
+      "pattern": "updateUrlTabAndView(tab, view)",
+      "constraint": "MUST be executed on every SectionViewSwitch onChange callback"
+    },
+    {
+      "name": "NO_UNICODE_EMOJI_CONTROLS",
+      "pattern": "<button>...",
+      "constraint": "Control icons MUST use <Icon name='...' /> or <svg> rather than emoji symbols"
+    }
+  ]
+}
