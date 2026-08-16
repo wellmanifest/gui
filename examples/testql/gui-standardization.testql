@@ -1,0 +1,23 @@
+# SCENARIO: GUI standardization (HOME wellmanifest/gui)
+# ACTOR: human:founder
+# ADOPT: wellmanifest/gui
+# HOME: https://github.com/wellmanifest/gui
+# TESTQL_VERSION: 2
+
+SET gui_driver "playwright"
+
+# Toolbar + view-switch + create/import last + URL sync
+GUI_START "http://127.0.0.1:8781/?action=panel&tab=projects&view=cards"
+WAIT 800
+
+GUI_ASSERT_VISIBLE ".item-section-toolbar"
+GUI_ASSERT_VISIBLE ".view-switch"
+GUI_ASSERT_VISIBLE ".infinite-scroll-footer"
+
+GUI_EVAL "(() => { const btns=[...document.querySelectorAll('.item-view-switch .item-view-button, .view-switch button')]; if(!btns.length) return 'NO_SWITCH'; const last=btns[btns.length-1]; const t=(last.title||last.textContent||'').toLowerCase(); return /(import|add|create|register|formularz|podłączen)/.test(t) ? 'OK_LAST' : (last.title||last.textContent||''); })()"
+GUI_ASSERT_TEXT "OK_LAST"
+
+GUI_EVAL "(() => new URL(location.href).searchParams.get('tab') || 'MISSING')()"
+GUI_ASSERT_TEXT "projects"
+
+GUI_STOP

@@ -1,0 +1,126 @@
+{
+  "schema": "wellmanifest.gui/dsl/v1",
+  "$schema": "https://wellmanifest.com/schemas/gui-dsl/v1",
+  "id": "subactor.www/panel",
+  "version": "1.0.0",
+  "title": "Subactor portal panel (ADOPT example)",
+  "placement": {
+    "home": "subactor",
+    "shape": "runtime_service",
+    "adopt": "wellmanifest/gui",
+    "runtimeOwner": "subactor"
+  },
+  "urlState": {
+    "strategy": "replaceState",
+    "params": {
+      "tab": "tab",
+      "view": "view",
+      "nested": ["project", "host", "org", "registry", "tag", "filter"]
+    }
+  },
+  "surfaces": [
+    {
+      "id": "chat",
+      "kind": "system-chat",
+      "tab": "chat",
+      "systemChat": {
+        "id": "openwebui",
+        "defaultUrl": "http://127.0.0.1:3004/",
+        "persistence": {
+          "primary": "account-hosting",
+          "injectionGlobal": "__SUBACTOR_OPENWEBUI_URL__",
+          "envVar": "SUBACTOR_OPENWEBUI_URL",
+          "optionalBrowserOverride": "localStorage"
+        },
+        "gracefulFailure": true
+      }
+    },
+    {
+      "id": "account",
+      "kind": "account",
+      "tab": "account",
+      "toolbar": {
+        "selector": ".section-head",
+        "titleSelector": ".section-title",
+        "icon": "svg-inline"
+      }
+    },
+    {
+      "id": "hosts",
+      "kind": "section",
+      "tab": "hosts",
+      "toolbar": {
+        "selector": ".item-section-toolbar",
+        "titleSelector": ".panel-section-title",
+        "subSelector": ".section-sub",
+        "icon": "svg-inline"
+      },
+      "viewSwitch": {
+        "selector": ".view-switch",
+        "modes": ["cards", "table", "list", "add"],
+        "createLast": true,
+        "createModes": ["add"]
+      },
+      "infiniteScroll": {
+        "footerSelector": ".infinite-scroll-footer",
+        "hook": "useInfiniteScroll"
+      },
+      "prependOnCreate": true
+    },
+    {
+      "id": "projects",
+      "kind": "hierarchy",
+      "tab": "projects",
+      "toolbar": {
+        "selector": ".item-section-toolbar",
+        "titleSelector": ".panel-section-title",
+        "icon": "svg-inline"
+      },
+      "viewSwitch": {
+        "selector": ".view-switch",
+        "modes": ["cards", "table", "list", "import"],
+        "createLast": true,
+        "createModes": ["import"]
+      },
+      "infiniteScroll": {
+        "footerSelector": ".infinite-scroll-footer"
+      },
+      "prependOnCreate": true
+    },
+    {
+      "id": "integrations",
+      "kind": "connector-registry",
+      "tab": "integrations",
+      "toolbar": {
+        "selector": ".item-section-toolbar",
+        "titleSelector": ".panel-section-title",
+        "icon": "svg-inline"
+      },
+      "viewSwitch": {
+        "selector": ".view-switch",
+        "modes": ["cards", "table", "add"],
+        "createLast": true,
+        "createModes": ["add"]
+      },
+      "filters": {
+        "tagParam": "tag",
+        "filterParam": "filter",
+        "registryParam": "registry"
+      },
+      "prependOnCreate": true
+    }
+  ],
+  "testql": {
+    "driver": "playwright",
+    "scenarioRefs": [
+      "examples/testql/gui-standardization.testql",
+      "subactor/testkit/tests/testql/gui-standardization.testql"
+    ],
+    "assertSelectors": {
+      "toolbar": ".item-section-toolbar",
+      "viewSwitch": ".view-switch",
+      "scrollFooter": ".infinite-scroll-footer",
+      "sectionTitle": ".panel-section-title"
+    }
+  }
+}

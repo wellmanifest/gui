@@ -1,0 +1,91 @@
+{
+  "schema": "wellmanifest.gui/standard/v1",
+  "$id": "https://wellmanifest.com/schemas/gui/standard/v1",
+  "id": "wellmanifest/gui",
+  "version": 1,
+  "status": "canonical",
+  "updated": "2026-08-16",
+  "title": "GUI standardization (wellmanifest/gui)",
+  "standardOwner": "wellmanifest",
+  "placement": {
+    "home": "wellmanifest",
+    "shape": "domain_pack",
+    "adopt": "wellmanifest/gui"
+  },
+  "authority": "propose-only",
+  "principles": [
+    {
+      "id": "toolbar-header",
+      "name": "Section toolbar and title",
+      "requirement": "Every panel section starts with a toolbar containing a section title (with SVG icon), optional helper text, and a view-switch when multiple presentation modes exist."
+    },
+    {
+      "id": "view-switch-modes",
+      "name": "Multi-mode presentation",
+      "requirement": "Data sections support switching presentation modes (cards, table, list, matrix, import, …) without a full page reload."
+    },
+    {
+      "id": "view-switch-create-last",
+      "name": "Create/import always last",
+      "requirement": "In a view-switch, the create/import/add/register control MUST be the last control. Do not duplicate a leading '+' character when an SVG plus icon is already present."
+    },
+    {
+      "id": "top-down-prepend",
+      "name": "Newest first",
+      "requirement": "Creating a resource prepends it to the collection [new, ...prev]."
+    },
+    {
+      "id": "infinite-scroll",
+      "name": "Lazy loading",
+      "requirement": "Production collections use a unified infinite-scroll (or equivalent) footer to load further pages."
+    },
+    {
+      "id": "url-state-persistence",
+      "name": "URL state sync",
+      "requirement": "Panel state is shareable via history.replaceState without full reload. Canonical params: tab, view, nested selection ids (project/host/org/…), registry, tag, filter."
+    },
+    {
+      "id": "org-project-artifact-hierarchy",
+      "name": "Org → project → artifacts",
+      "requirement": "When projects exist, present org filter, project list, then project detail with tickets/artifacts. IA order preference: system chat → account → integrations → … → projects → organization registers."
+    },
+    {
+      "id": "connector-registry",
+      "name": "Connector registry filters",
+      "requirement": "Connector catalogs support tags, text filter, mode switch (e.g. MCP/A2A), and register-as-last view-switch mode. New entries prepend."
+    },
+    {
+      "id": "system-chat-surface",
+      "name": "System chat surface",
+      "requirement": "When a system chat surface exists (e.g. OpenWebUI), durable URL configuration is account/hosting + server-side injection (env / PHP window global). Browser-only localStorage is optional override, never the sole persistence. Unavailable services fail gracefully."
+    },
+    {
+      "id": "svg-iconography",
+      "name": "Inline SVG icons",
+      "requirement": "Navigation and action icons use inline SVG components. Unicode/emoji as control icons are forbidden."
+    }
+  ],
+  "url_query_contract": {
+    "params": {
+      "tab": "Top-level panel section id",
+      "view": "Active view-switch mode (cards|table|list|add|import|…)",
+      "project": "Selected project id",
+      "host": "Selected host id",
+      "org": "Organization filter",
+      "registry": "Connector registry mode (mcp|a2a|add|…)",
+      "tag": "Active tag filter",
+      "filter": "Free-text filter"
+    }
+  },
+  "testql_contract": {
+    "driver": "gui_driver (playwright or product-equivalent)",
+    "required_assertions": [
+      "GUI_ASSERT_VISIBLE section toolbar",
+      "GUI_ASSERT_VISIBLE view-switch when multi-mode",
+      "Create/import view-switch control is last",
+      "URL reflects tab and view without reload",
+      "Infinite-scroll footer present on production collections"
+    ],
+    "example_scenario": "examples/testql/gui-standardization.testql"
+  }
+}
