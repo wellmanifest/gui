@@ -1,0 +1,176 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://wellmanifest.com/schemas/gui-page/v1",
+  "title": "Wellmanifest GUI page DSL v1",
+  "description": "Generic page document: kind, landmarks, observed or declared visual tokens, and defect codes. Complements wellmanifest.gui/dsl/v1 (panel surfaces). Not a brand SSOT.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schema", "id", "version", "page", "structure", "visual"],
+  "properties": {
+    "$schema": { "type": "string", "format": "uri" },
+    "schema": { "const": "wellmanifest.gui/page/v1" },
+    "id": {
+      "type": "string",
+      "minLength": 3,
+      "maxLength": 128,
+      "pattern": "^[a-z0-9][a-z0-9._/-]*$"
+    },
+    "version": {
+      "type": "string",
+      "pattern": "^[0-9]+\\.[0-9]+\\.[0-9]+([.-][A-Za-z0-9.-]+)?$"
+    },
+    "title": { "type": "string", "minLength": 1, "maxLength": 200 },
+    "placement": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["home", "shape", "adopt"],
+      "properties": {
+        "home": { "enum": ["wellmanifest", "subactor", "semcod"] },
+        "shape": { "enum": ["domain_pack", "runtime_service", "both"] },
+        "adopt": { "const": "wellmanifest/gui" },
+        "runtimeOwner": { "type": "string", "minLength": 1, "maxLength": 64 }
+      }
+    },
+    "page": { "$ref": "#/$defs/pageMeta" },
+    "structure": { "$ref": "#/$defs/structure" },
+    "visual": { "$ref": "#/$defs/visual" },
+    "defects": {
+      "type": "array",
+      "items": { "$ref": "#/$defs/defect" }
+    },
+    "appliesPrinciples": {
+      "type": "array",
+      "items": { "type": "string", "minLength": 1, "maxLength": 64 },
+      "uniqueItems": true
+    }
+  },
+  "$defs": {
+    "pageKind": {
+      "type": "string",
+      "enum": ["landing", "marketplace", "article", "form", "auth", "panel", "unknown"]
+    },
+    "pageRole": {
+      "type": "string",
+      "enum": ["public", "authenticated"]
+    },
+    "pageMeta": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["kind", "role", "source"],
+      "properties": {
+        "kind": { "$ref": "#/$defs/pageKind" },
+        "intentKind": { "$ref": "#/$defs/pageKind" },
+        "role": { "$ref": "#/$defs/pageRole" },
+        "source": { "enum": ["declared", "observed"] },
+        "url": { "type": "string", "minLength": 1, "maxLength": 2000 },
+        "family": {
+          "type": "string",
+          "enum": ["marketing", "commerce", "workspace", "content", "account"]
+        }
+      }
+    },
+    "structure": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["landmarks", "chrome"],
+      "properties": {
+        "landmarks": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "main": { "type": "boolean" },
+            "footer": { "type": "boolean" },
+            "h1": { "type": ["string", "null"] },
+            "form": { "type": "boolean" },
+            "article": { "type": "boolean" },
+            "listing": { "type": "boolean" },
+            "headingOutline": {
+              "type": "array",
+              "maxItems": 24,
+              "items": {
+                "type": "object",
+                "additionalProperties": false,
+                "required": ["tag", "text"],
+                "properties": {
+                  "tag": { "enum": ["H1", "H2", "H3"] },
+                  "text": { "type": "string", "maxLength": 80 }
+                }
+              }
+            }
+          }
+        },
+        "chrome": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "itemSectionToolbar": { "type": "boolean" },
+            "itemViewSwitch": { "type": "boolean" },
+            "sectionAddButton": { "type": "boolean" },
+            "sectionViewToolbar": { "type": "boolean" },
+            "viewport": { "type": "boolean" },
+            "itemView": { "type": "boolean" },
+            "hamburger": { "type": "boolean" }
+          }
+        }
+      }
+    },
+    "token": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["value", "count"],
+      "properties": {
+        "value": { "type": "string", "minLength": 1, "maxLength": 120 },
+        "count": { "type": "integer", "minimum": 1 }
+      }
+    },
+    "visual": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["budgets", "counts"],
+      "properties": {
+        "budgets": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["fontFamilies", "colors", "fontSizes"],
+          "properties": {
+            "fontFamilies": { "type": "integer", "minimum": 1, "maximum": 16 },
+            "colors": { "type": "integer", "minimum": 1, "maximum": 64 },
+            "fontSizes": { "type": "integer", "minimum": 1, "maximum": 32 }
+          }
+        },
+        "counts": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["fontFamilies", "colors", "fontSizes"],
+          "properties": {
+            "fontFamilies": { "type": "integer", "minimum": 0 },
+            "colors": { "type": "integer", "minimum": 0 },
+            "fontSizes": { "type": "integer", "minimum": 0 }
+          }
+        },
+        "tokens": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "fontFamilies": { "type": "array", "items": { "$ref": "#/$defs/token" } },
+            "colors": { "type": "array", "items": { "$ref": "#/$defs/token" } },
+            "fontSizes": { "type": "array", "items": { "$ref": "#/$defs/token" } }
+          }
+        }
+      }
+    },
+    "defect": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["code", "severity", "message"],
+      "properties": {
+        "code": {
+          "type": "string",
+          "pattern": "^GUI-(VIS|PAGE)-[A-Z]+-[0-9]{3}$"
+        },
+        "severity": { "enum": ["info", "warn", "error"] },
+        "message": { "type": "string", "minLength": 1, "maxLength": 240 }
+      }
+    }
+  }
+}

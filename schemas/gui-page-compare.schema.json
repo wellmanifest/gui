@@ -1,0 +1,81 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://wellmanifest.com/schemas/gui-page-compare/v1",
+  "title": "Wellmanifest GUI page compare v1",
+  "description": "Delta between two wellmanifest.gui/page/v1 documents. Cross-kind compares are advisory, not same-surface drift.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schema", "id", "left", "right", "comparable", "deltas"],
+  "properties": {
+    "$schema": { "type": "string", "format": "uri" },
+    "schema": { "const": "wellmanifest.gui/page-compare/v1" },
+    "id": {
+      "type": "string",
+      "minLength": 3,
+      "maxLength": 128,
+      "pattern": "^[a-z0-9][a-z0-9._/-]*$"
+    },
+    "version": { "type": "string" },
+    "placement": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["home", "shape", "adopt"],
+      "properties": {
+        "home": { "enum": ["wellmanifest", "subactor", "semcod"] },
+        "shape": { "enum": ["domain_pack", "runtime_service", "both"] },
+        "adopt": { "const": "wellmanifest/gui" },
+        "runtimeOwner": { "type": "string" }
+      }
+    },
+    "left": { "$ref": "#/$defs/side" },
+    "right": { "$ref": "#/$defs/side" },
+    "comparable": { "enum": ["same-kind", "cross-kind", "intent-mismatch"] },
+    "reason": { "type": "string", "maxLength": 240 },
+    "deltas": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["kind"],
+        "properties": {
+          "kind": { "type": "string", "minLength": 1, "maxLength": 64 },
+          "left": {},
+          "right": {},
+          "delta": { "type": "integer" }
+        }
+      }
+    },
+    "defects": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["code", "severity", "message"],
+        "properties": {
+          "code": { "type": "string" },
+          "severity": { "enum": ["info", "warn", "error"] },
+          "message": { "type": "string" }
+        }
+      }
+    },
+    "notes": {
+      "type": "array",
+      "items": { "type": "string", "maxLength": 240 }
+    }
+  },
+  "$defs": {
+    "side": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["id", "kind"],
+      "properties": {
+        "id": { "type": "string" },
+        "kind": { "type": "string" },
+        "intentKind": { "type": "string" },
+        "title": { "type": "string" },
+        "url": { "type": "string" },
+        "source": { "enum": ["declared", "observed"] }
+      }
+    }
+  }
+}

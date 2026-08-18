@@ -1,0 +1,91 @@
+{
+  "title": "Partner marketplace",
+  "url": "http://127.0.0.1:8781/marketplace",
+  "structure": {
+    "itemSectionToolbar": false,
+    "itemViewSwitch": false,
+    "sectionAddButton": false,
+    "sectionViewToolbar": false,
+    "siteFooter": true,
+    "viewport": false,
+    "itemView": false,
+    "hamburger": false,
+    "main": true,
+    "headings": [
+      {
+        "tag": "H1",
+        "text": "Partner marketplace"
+      }
+    ]
+  },
+  "tokens": {
+    "fonts": [
+      {
+        "value": "Inter",
+        "count": 47
+      },
+      {
+        "value": "ui-monospace",
+        "count": 10
+      }
+    ],
+    "fontFamilyCount": 2,
+    "colors": [
+      {
+        "value": "rgb(242, 242, 242)",
+        "count": 41
+      },
+      {
+        "value": "rgb(34, 211, 197)",
+        "count": 38
+      },
+      {
+        "value": "rgb(255, 255, 255)",
+        "count": 31
+      },
+      {
+        "value": "rgb(154, 154, 154)",
+        "count": 4
+      },
+      {
+        "value": "rgb(17, 17, 17)",
+        "count": 2
+      }
+    ],
+    "colorCount": 5,
+    "fontSizes": [
+      {
+        "value": "17.1px",
+        "count": 24
+      },
+      {
+        "value": "18px",
+        "count": 14
+      },
+      {
+        "value": "14.4px",
+        "count": 9
+      },
+      {
+        "value": "15.75px",
+        "count": 8
+      },
+      {
+        "value": "36px",
+        "count": 1
+      },
+      {
+        "value": "14.76px",
+        "count": 1
+      }
+    ],
+    "fontSizeCount": 6
+  },
+  "defects": [],
+  "schema": "wellmanifest.gui/visual-probe/v0",
+  "placement": {
+    "home": "wellmanifest",
+    "shape": "domain_pack",
+    "adopt": "wellmanifest/gui"
+  }
+}

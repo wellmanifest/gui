@@ -1,0 +1,86 @@
+{
+  "schema": "wellmanifest.gui/page-compare/v1",
+  "$schema": "https://wellmanifest.com/schemas/gui-page-compare/v1",
+  "id": "compare/subactor.www-panel.contact-vs-subactor.www-observed-contact-url",
+  "version": "1.4.0",
+  "placement": {
+    "home": "wellmanifest",
+    "shape": "domain_pack",
+    "adopt": "wellmanifest/gui"
+  },
+  "left": {
+    "id": "subactor.www/panel.contact",
+    "kind": "panel",
+    "intentKind": "panel",
+    "title": "Kontakty",
+    "url": "http://127.0.0.1:8781/?action=contact&viewport=pc&item_view=table&lang=pl&currency=PLN&theme=dark&organization=info-softreck",
+    "source": "declared"
+  },
+  "right": {
+    "id": "subactor.www/observed-contact-url",
+    "kind": "landing",
+    "intentKind": "panel",
+    "title": "Subactor — platforma autonomizacji procesów biznesowych",
+    "url": "http://127.0.0.1:8781/?action=contact&viewport=pc&item_view=table&lang=pl&currency=PLN&theme=dark&organization=info-softreck",
+    "source": "observed"
+  },
+  "comparable": "intent-mismatch",
+  "reason": "Intent kind does not match observed/declared kind.",
+  "deltas": [
+    {
+      "kind": "font-families",
+      "left": 0,
+      "right": 2,
+      "delta": 2
+    },
+    {
+      "kind": "colors",
+      "left": 0,
+      "right": 16,
+      "delta": 16
+    },
+    {
+      "kind": "font-sizes",
+      "left": 0,
+      "right": 3,
+      "delta": 3
+    },
+    {
+      "kind": "structure.itemSectionToolbar",
+      "left": true,
+      "right": false
+    },
+    {
+      "kind": "structure.itemViewSwitch",
+      "left": true,
+      "right": false
+    },
+    {
+      "kind": "structure.sectionAddButton",
+      "left": true,
+      "right": false
+    },
+    {
+      "kind": "page.kind",
+      "left": "panel",
+      "right": "landing"
+    }
+  ],
+  "defects": [
+    {
+      "code": "GUI-PAGE-KIND-001",
+      "severity": "error",
+      "message": "Intent kind does not match observed/declared kind."
+    },
+    {
+      "code": "GUI-PAGE-KIND-002",
+      "severity": "warn",
+      "message": "Different page.kind (panel vs landing) — do not treat as same-surface drift."
+    }
+  ],
+  "notes": [
+    "Compare kind first, then landmarks, then token budgets.",
+    "Colors/fonts HOME stays wellmanifest/brand + product brand — this is observed evidence.",
+    "Panel collections still use wellmanifest.gui/dsl/v1 surfaces."
+  ]
+}

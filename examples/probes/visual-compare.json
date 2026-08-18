@@ -1,0 +1,39 @@
+{
+  "schema": "wellmanifest.gui/visual-compare/v0",
+  "placement": {
+    "home": "wellmanifest",
+    "shape": "domain_pack",
+    "adopt": "wellmanifest/gui"
+  },
+  "left": {
+    "url": "http://127.0.0.1:8781/marketplace",
+    "title": "Partner marketplace"
+  },
+  "right": {
+    "url": "http://127.0.0.1:8781/?action=contact&viewport=pc&item_view=table&lang=pl&currency=PLN&theme=dark&organization=info-softreck",
+    "title": "Subactor — platforma autonomizacji procesów biznesowych"
+  },
+  "deltas": [
+    {
+      "kind": "colors",
+      "left": 5,
+      "right": 16,
+      "delta": 11
+    },
+    {
+      "kind": "font-sizes",
+      "left": 6,
+      "right": 3,
+      "delta": -3
+    },
+    {
+      "kind": "structure.viewport",
+      "left": false,
+      "right": true
+    }
+  ],
+  "notes": [
+    "Compare observed tokens, not brand SSOT. Colors/fonts HOME in wellmanifest/brand + product brand.",
+    "Existing wellmanifest.gui/dsl/v1 remains the structural contract (toolbar, URL, Add-left)."
+  ]
+}

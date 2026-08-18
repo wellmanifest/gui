@@ -29,6 +29,11 @@ From `standard/gui.standard.v1.json` → `testql_contract.required_assertions`:
 10. Infinite-scroll footer on production collections
 11. One `<footer class="footer">` on public and app chrome
 
+Public pages (`landing`, `marketplace`, `article`, `form`, `auth`) use
+`wellmanifest.gui/page/v1` and do **not** require toolbar/Add-left asserts.
+Kind mismatch (`GUI-PAGE-KIND-001`) is a page-DSL defect, not a TestQL panel
+scenario.
+
 Legacy assert “create/import control is last in the switch” is **withdrawn**.
 
 ## Example

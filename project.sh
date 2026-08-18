@@ -9,12 +9,14 @@ cmd="${1:-check}"
 
 case "$cmd" in
   check|validate)
-    echo "[wellmanifest/gui] Checking DSL manifest and autogrammar rules..."
+    echo "[wellmanifest/gui] Checking DSL manifest, page DSL, and autogrammar rules..."
+    "$repo_root/scripts/validate.sh"
     if command -v node >/dev/null 2>&1; then
       node -e "
         const fs = require('fs');
         const manifest = JSON.parse(fs.readFileSync('$repo_root/dsl-manifest.json', 'utf8'));
         if (manifest.id !== 'wellmanifest/gui') throw new Error('Invalid manifest id');
+        if (manifest.version !== '1.4.0') throw new Error('Unexpected manifest version');
         console.log('✔ dsl-manifest.json valid (version ' + manifest.version + ')');
       "
     else

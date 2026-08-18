@@ -55,6 +55,21 @@
       "name": "SITE_FOOTER",
       "pattern": "<footer class=\"footer\">...</footer>",
       "constraint": "One site footer on public and app chrome; do not inject a second footer into #root"
+    },
+    {
+      "name": "PAGE_KIND",
+      "pattern": "page.kind=landing|marketplace|article|form|auth|panel",
+      "constraint": "Public pages use wellmanifest.gui/page/v1; panel toolbar/Add-left rules apply only when kind=panel"
+    },
+    {
+      "name": "PAGE_KIND_MATCH",
+      "pattern": "page.intentKind === page.kind",
+      "constraint": "Observed kind MUST match declared/URL intent; mismatch is GUI-PAGE-KIND-001"
+    },
+    {
+      "name": "VISUAL_BUDGET",
+      "pattern": "visual.counts <= page_profiles[kind].visualBudgets",
+      "constraint": "Font-family, color and font-size counts stay within the kind profile; not a brand SSOT"
     }
   ]
 }

@@ -1,5 +1,18 @@
 # Changelog
 
+## [1.4.0] - 2026-08-18
+### Added
+- Generic **page DSL** `wellmanifest.gui/page/v1` for landing, marketplace,
+  article, form, auth, and panel. Panel collection contracts stay on
+  `wellmanifest.gui/dsl/v1`.
+- Per-kind visual budgets (font families, colors, font sizes) and defect
+  codes (`GUI-VIS-*`, `GUI-PAGE-KIND-001/002`, `GUI-PAGE-CHROME-001`).
+- Compare document `wellmanifest.gui/page-compare/v1`: kind first, then
+  landmarks, then tokens (`same-kind` | `cross-kind` | `intent-mismatch`).
+- Probe emits page documents: `scripts/probe-visual.py --intents …`.
+- Examples under `examples/pages/` from live `:8781` marketplace and the
+  contact URL (observed as landing, not panel).
+
 ## [1.3.0] - 2026-08-18
 ### Changed
 - Split the URL contract: `view=` is section/create mode only; presentation is

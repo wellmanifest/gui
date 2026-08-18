@@ -1,0 +1,69 @@
+{
+  "schema": "wellmanifest.gui/page/v1",
+  "$schema": "https://wellmanifest.com/schemas/gui-page/v1",
+  "id": "example.product/contact-form",
+  "version": "1.4.0",
+  "title": "Kontakt",
+  "placement": {
+    "home": "subactor",
+    "shape": "runtime_service",
+    "adopt": "wellmanifest/gui",
+    "runtimeOwner": "subactor"
+  },
+  "page": {
+    "kind": "form",
+    "intentKind": "form",
+    "role": "public",
+    "source": "declared",
+    "url": "https://example.test/contact",
+    "family": "account"
+  },
+  "structure": {
+    "landmarks": {
+      "main": true,
+      "footer": true,
+      "h1": "Kontakt",
+      "form": true,
+      "article": false,
+      "listing": false,
+      "headingOutline": [
+        {
+          "tag": "H1",
+          "text": "Kontakt"
+        }
+      ]
+    },
+    "chrome": {
+      "itemSectionToolbar": false,
+      "itemViewSwitch": false,
+      "sectionAddButton": false,
+      "sectionViewToolbar": false,
+      "viewport": false,
+      "itemView": false,
+      "hamburger": false
+    }
+  },
+  "visual": {
+    "budgets": {
+      "fontFamilies": 2,
+      "colors": 10,
+      "fontSizes": 6
+    },
+    "counts": {
+      "fontFamilies": 0,
+      "colors": 0,
+      "fontSizes": 0
+    },
+    "tokens": {
+      "fontFamilies": [],
+      "colors": [],
+      "fontSizes": []
+    }
+  },
+  "defects": [],
+  "appliesPrinciples": [
+    "site-footer",
+    "page-kind",
+    "visual-budget"
+  ]
+}

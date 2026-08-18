@@ -1,7 +1,7 @@
 {
   "$schema": "./schemas/gui-dsl.schema.v1.json",
   "id": "wellmanifest/gui",
-  "version": "1.3.0",
+  "version": "1.4.0",
   "title": "Universal GUI DSL & Verification Contract Standard",
   "status": "canonical",
   "standardOwner": "wellmanifest",
@@ -60,6 +60,18 @@
       {
         "id": "RULE_SITE_FOOTER",
         "description": "Public and app chrome share one footer.footer; SPA #root MUST NOT receive a duplicate injected footer."
+      },
+      {
+        "id": "RULE_PAGE_KIND",
+        "description": "Public pages MUST declare wellmanifest.gui/page/v1 page.kind (landing|marketplace|article|form|auth|panel). Toolbar/Add-left rules apply only when kind=panel."
+      },
+      {
+        "id": "RULE_PAGE_KIND_MATCH",
+        "description": "Observed page.kind MUST match page.intentKind when intent is set (GUI-PAGE-KIND-001)."
+      },
+      {
+        "id": "RULE_VISUAL_BUDGET",
+        "description": "Observed font/color/size counts MUST stay within page_profiles[kind].visualBudgets."
       }
     ]
   },

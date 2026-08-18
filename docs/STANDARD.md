@@ -3,15 +3,17 @@
 Authority: **propose-only**. Adopters implement; this pack does not grant
 production mutation or merge rights.
 
-Pack version **1.3.0** (standard document version 4).
+Pack version **1.4.0** (standard document version 5).
 
 ## Objects
 
 | Object | Role |
 | --- | --- |
-| GUI DSL document | Declares surfaces, toolbar, view-switch, URL state, TestQL binding |
-| Standard JSON | Machine principles + URL/TestQL contracts (`standard/gui.standard.v1.json`) |
-| TestQL scenario | Driver + asserts for toolbar, Add-left, chrome URL, 375px |
+| GUI DSL document | Declares **panel** surfaces, toolbar, view-switch, URL state, TestQL binding (`wellmanifest.gui/dsl/v1`) |
+| Page document | Generic page kind + landmarks + visual tokens (`wellmanifest.gui/page/v1`) |
+| Page compare | Kind-first delta (`wellmanifest.gui/page-compare/v1`) |
+| Standard JSON | Machine principles, URL/TestQL contracts, `page_profiles` |
+| TestQL scenario | Driver + asserts for toolbar, Add-left, chrome URL, 375px (panel only) |
 | Runtime adopt pin | Thin pointer in product repo (version/path), never a second SSOT |
 
 ## Invariants
@@ -39,6 +41,14 @@ Pack version **1.3.0** (standard document version 4).
 9. **One site footer**: `<footer class="footer">` on public pages and the app
    (SPA `#root` must not receive a second injected footer).
 10. Infinite-scroll on production collections; SVG icons only; pack is versioned.
+11. **Page kind first**: public pages are `landing|marketplace|article|form|auth`.
+    Toolbar / Add-left / layered URL apply only to `panel`. Observed kind must
+    match URL/declared intent (`GUI-PAGE-KIND-001`).
+12. **Visual budgets** are per `page_profiles[kind]`. Excess fonts/colors/sizes
+    are defect codes, not a second brand SSOT (`wellmanifest/brand` stays HOME
+    for allowed tokens).
+13. **Compare kind, then landmarks, then tokens.** Cross-kind deltas are
+    advisory. Do not score marketplace vs landing as panel drift.
 
 Superseded: create/import as last mode *inside* the view-switch (legacy
 wellmanifest/gui note). Superseded: tablet default `view=list` and encoding

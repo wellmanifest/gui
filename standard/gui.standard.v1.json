@@ -2,7 +2,7 @@
   "schema": "wellmanifest.gui/standard/v1",
   "$id": "https://wellmanifest.com/schemas/gui/standard/v1",
   "id": "wellmanifest/gui",
-  "version": 4,
+  "version": 5,
   "status": "canonical",
   "updated": "2026-08-18",
   "title": "GUI standardization (wellmanifest/gui)",
@@ -128,8 +128,100 @@
       "id": "workspace-rail-organization-switcher",
       "name": "Workspace rail organization switcher",
       "requirement": "In multi-tenant SaaS panels on viewport=pc, the primary rail navigation must expose an uncollapsed organization switcher (<select id='active-organization'>) with an inline '+ Nowa organizacja…' option. Switching organization writes organization=<slug> and establishes context on organization configuration (tab=configuration) unless the URL already names another allowed tab. Compact viewports place the same select in the drawer. The switcher must not be duplicated in the top navbar brand row."
+    },
+    {
+      "id": "page-kind",
+      "name": "Generic page kind",
+      "requirement": "Every public or authenticated page document uses wellmanifest.gui/page/v1 and declares page.kind from the closed set landing|marketplace|article|form|auth|panel. Panel collection contracts remain wellmanifest.gui/dsl/v1 surfaces. Do not force toolbar/Add-left invariants on landing, marketplace, article, form, or auth."
+    },
+    {
+      "id": "page-kind-match",
+      "name": "Intent kind matches observed kind",
+      "requirement": "When a URL or declared intent names a kind (e.g. action=contact → panel), the observed document kind MUST match. GUI-PAGE-KIND-001 is an error. Do not compare visual token drift across a kind mismatch."
+    },
+    {
+      "id": "visual-budget",
+      "name": "Per-kind visual budgets",
+      "requirement": "Observed font-family, color, and font-size counts MUST stay within page_profiles[kind].visualBudgets. Excess families, colors, or sizes are GUI-VIS-FONT-001 / GUI-VIS-COLOR-001 / GUI-VIS-TYPE-001. Budgets are defect thresholds, not a second brand SSOT — allowed tokens HOME in wellmanifest/brand + product brand."
+    },
+    {
+      "id": "heading-outline",
+      "name": "Heading outline",
+      "requirement": "Public marketing and content pages expose one H1 and a readable H2/H3 outline in page.structure.landmarks.headingOutline. Missing H1 is GUI-VIS-STRUCT-003. Missing main is GUI-VIS-STRUCT-004."
+    },
+    {
+      "id": "compare-kind-first",
+      "name": "Compare kind before tokens",
+      "requirement": "wellmanifest.gui/page-compare/v1 sets comparable=same-kind|cross-kind|intent-mismatch. Cross-kind deltas are advisory (GUI-PAGE-KIND-002). Same-kind deltas are surface drift. Intent mismatch is not a visual-budget failure."
     }
   ],
+  "page_kinds": ["landing", "marketplace", "article", "form", "auth", "panel", "unknown"],
+  "page_profiles": {
+    "landing": {
+      "role": "public",
+      "family": "marketing",
+      "requiredLandmarks": ["main", "h1", "footer"],
+      "panelChromeRequired": false,
+      "visualBudgets": { "fontFamilies": 3, "colors": 16, "fontSizes": 8 },
+      "appliesPrinciples": ["site-footer", "page-kind", "visual-budget", "heading-outline"]
+    },
+    "marketplace": {
+      "role": "public",
+      "family": "commerce",
+      "requiredLandmarks": ["main", "h1", "footer"],
+      "panelChromeRequired": false,
+      "visualBudgets": { "fontFamilies": 3, "colors": 8, "fontSizes": 5 },
+      "appliesPrinciples": ["site-footer", "page-kind", "visual-budget"]
+    },
+    "article": {
+      "role": "public",
+      "family": "content",
+      "requiredLandmarks": ["main", "h1", "footer"],
+      "panelChromeRequired": false,
+      "visualBudgets": { "fontFamilies": 2, "colors": 8, "fontSizes": 6 },
+      "appliesPrinciples": ["site-footer", "page-kind", "visual-budget", "heading-outline"]
+    },
+    "form": {
+      "role": "public",
+      "family": "account",
+      "requiredLandmarks": ["main", "h1", "form", "footer"],
+      "panelChromeRequired": false,
+      "visualBudgets": { "fontFamilies": 2, "colors": 10, "fontSizes": 6 },
+      "appliesPrinciples": ["site-footer", "page-kind", "visual-budget"]
+    },
+    "auth": {
+      "role": "public",
+      "family": "account",
+      "requiredLandmarks": ["main", "form"],
+      "panelChromeRequired": false,
+      "visualBudgets": { "fontFamilies": 2, "colors": 8, "fontSizes": 5 },
+      "appliesPrinciples": ["page-kind", "visual-budget"]
+    },
+    "panel": {
+      "role": "authenticated",
+      "family": "workspace",
+      "requiredLandmarks": ["main", "footer"],
+      "panelChromeRequired": true,
+      "visualBudgets": { "fontFamilies": 3, "colors": 16, "fontSizes": 8 },
+      "appliesPrinciples": [
+        "toolbar-header",
+        "create-primary-button-left",
+        "url-state-persistence",
+        "site-footer",
+        "page-kind",
+        "page-kind-match",
+        "visual-budget"
+      ]
+    },
+    "unknown": {
+      "role": "public",
+      "family": "marketing",
+      "requiredLandmarks": ["main"],
+      "panelChromeRequired": false,
+      "visualBudgets": { "fontFamilies": 3, "colors": 16, "fontSizes": 8 },
+      "appliesPrinciples": ["page-kind", "visual-budget"]
+    }
+  },
   "url_query_contract": {
     "history": {
       "tab": "pushState",

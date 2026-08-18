@@ -1,0 +1,212 @@
+{
+  "schema": "wellmanifest.gui/page/v1",
+  "$schema": "https://wellmanifest.com/schemas/gui-page/v1",
+  "id": "subactor.www/observed-contact-url",
+  "version": "1.4.0",
+  "title": "Subactor — platforma autonomizacji procesów biznesowych",
+  "placement": {
+    "home": "subactor",
+    "shape": "runtime_service",
+    "adopt": "wellmanifest/gui",
+    "runtimeOwner": "subactor"
+  },
+  "page": {
+    "kind": "landing",
+    "role": "public",
+    "source": "observed",
+    "url": "http://127.0.0.1:8781/?action=contact&viewport=pc&item_view=table&lang=pl&currency=PLN&theme=dark&organization=info-softreck",
+    "family": "marketing",
+    "intentKind": "panel"
+  },
+  "structure": {
+    "landmarks": {
+      "main": true,
+      "footer": true,
+      "h1": "Subactor to platforma autonomizacji procesów biznesowych.",
+      "form": false,
+      "article": false,
+      "listing": false,
+      "headingOutline": [
+        {
+          "tag": "H1",
+          "text": "Subactor to platforma autonomizacji procesów biznesowych."
+        },
+        {
+          "tag": "H2",
+          "text": "Od zdarzenia do sprawdzonego wyniku"
+        },
+        {
+          "tag": "H3",
+          "text": "Zamówienia z kilku sklepów"
+        },
+        {
+          "tag": "H3",
+          "text": "Faktury bez przepisywania"
+        },
+        {
+          "tag": "H3",
+          "text": "Awaria zauważona przed klientem"
+        },
+        {
+          "tag": "H3",
+          "text": "Wystarczy połączyć konta używane w Twoim procesie"
+        },
+        {
+          "tag": "H2",
+          "text": "Ile akcji wykonują Twoje procesy?"
+        },
+        {
+          "tag": "H2",
+          "text": "Wdrożenie On-Premise"
+        },
+        {
+          "tag": "H2",
+          "text": "Cztery rzeczy, które gwarantujemy na piśmie"
+        },
+        {
+          "tag": "H3",
+          "text": "Bez ukrytych kosztów"
+        },
+        {
+          "tag": "H3",
+          "text": "Bez zobowiązań"
+        },
+        {
+          "tag": "H3",
+          "text": "Bez karty na start"
+        }
+      ]
+    },
+    "chrome": {
+      "itemSectionToolbar": false,
+      "itemViewSwitch": false,
+      "sectionAddButton": false,
+      "sectionViewToolbar": false,
+      "viewport": true,
+      "itemView": true,
+      "hamburger": true
+    }
+  },
+  "visual": {
+    "budgets": {
+      "fontFamilies": 3,
+      "colors": 16,
+      "fontSizes": 8
+    },
+    "counts": {
+      "fontFamilies": 2,
+      "colors": 16,
+      "fontSizes": 3
+    },
+    "tokens": {
+      "fontFamilies": [
+        {
+          "value": "Inter",
+          "count": 697
+        },
+        {
+          "value": "Arial",
+          "count": 4
+        }
+      ],
+      "colors": [
+        {
+          "value": "rgb(255, 255, 255)",
+          "count": 424
+        },
+        {
+          "value": "rgb(92, 255, 228)",
+          "count": 324
+        },
+        {
+          "value": "rgb(242, 242, 242)",
+          "count": 293
+        },
+        {
+          "value": "rgb(110, 231, 183)",
+          "count": 132
+        },
+        {
+          "value": "rgb(208, 208, 208)",
+          "count": 81
+        },
+        {
+          "value": "rgb(154, 154, 154)",
+          "count": 70
+        },
+        {
+          "value": "rgb(6, 32, 30)",
+          "count": 40
+        },
+        {
+          "value": "rgb(156, 201, 239)",
+          "count": 34
+        },
+        {
+          "value": "rgb(17, 17, 17)",
+          "count": 29
+        },
+        {
+          "value": "rgb(22, 22, 22)",
+          "count": 19
+        },
+        {
+          "value": "rgba(92, 255, 228, 0.18)",
+          "count": 14
+        },
+        {
+          "value": "rgba(16, 185, 129, 0.15)",
+          "count": 10
+        },
+        {
+          "value": "rgb(0, 0, 0)",
+          "count": 5
+        },
+        {
+          "value": "rgb(252, 211, 77)",
+          "count": 4
+        },
+        {
+          "value": "rgba(59, 130, 246, 0.15)",
+          "count": 3
+        },
+        {
+          "value": "color(srgb 0 0 0 / 0.88)",
+          "count": 1
+        }
+      ],
+      "fontSizes": [
+        {
+          "value": "15.75px",
+          "count": 474
+        },
+        {
+          "value": "18px",
+          "count": 191
+        },
+        {
+          "value": "27px",
+          "count": 36
+        }
+      ]
+    }
+  },
+  "appliesPrinciples": [
+    "site-footer",
+    "page-kind",
+    "visual-budget",
+    "heading-outline"
+  ],
+  "defects": [
+    {
+      "code": "GUI-PAGE-KIND-001",
+      "severity": "error",
+      "message": "intent kind panel but observed/declared landing"
+    },
+    {
+      "code": "GUI-PAGE-CHROME-001",
+      "severity": "error",
+      "message": "panel chrome missing .item-section-toolbar"
+    }
+  ]
+}

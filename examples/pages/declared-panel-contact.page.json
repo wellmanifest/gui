@@ -1,0 +1,73 @@
+{
+  "schema": "wellmanifest.gui/page/v1",
+  "$schema": "https://wellmanifest.com/schemas/gui-page/v1",
+  "id": "subactor.www/panel.contact",
+  "version": "1.4.0",
+  "title": "Kontakty",
+  "placement": {
+    "home": "subactor",
+    "shape": "runtime_service",
+    "adopt": "wellmanifest/gui",
+    "runtimeOwner": "subactor"
+  },
+  "page": {
+    "kind": "panel",
+    "intentKind": "panel",
+    "role": "authenticated",
+    "source": "declared",
+    "url": "http://127.0.0.1:8781/?action=contact&viewport=pc&item_view=table&lang=pl&currency=PLN&theme=dark&organization=info-softreck",
+    "family": "workspace"
+  },
+  "structure": {
+    "landmarks": {
+      "main": true,
+      "footer": true,
+      "h1": "Kontakty",
+      "form": false,
+      "article": false,
+      "listing": false,
+      "headingOutline": [
+        {
+          "tag": "H1",
+          "text": "Kontakty"
+        }
+      ]
+    },
+    "chrome": {
+      "itemSectionToolbar": true,
+      "itemViewSwitch": true,
+      "sectionAddButton": true,
+      "sectionViewToolbar": true,
+      "viewport": true,
+      "itemView": true,
+      "hamburger": true
+    }
+  },
+  "visual": {
+    "budgets": {
+      "fontFamilies": 3,
+      "colors": 16,
+      "fontSizes": 8
+    },
+    "counts": {
+      "fontFamilies": 0,
+      "colors": 0,
+      "fontSizes": 0
+    },
+    "tokens": {
+      "fontFamilies": [],
+      "colors": [],
+      "fontSizes": []
+    }
+  },
+  "defects": [],
+  "appliesPrinciples": [
+    "toolbar-header",
+    "create-primary-button-left",
+    "url-state-persistence",
+    "site-footer",
+    "page-kind",
+    "page-kind-match",
+    "visual-budget"
+  ]
+}

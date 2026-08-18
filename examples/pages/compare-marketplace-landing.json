@@ -1,0 +1,65 @@
+{
+  "schema": "wellmanifest.gui/page-compare/v1",
+  "$schema": "https://wellmanifest.com/schemas/gui-page-compare/v1",
+  "id": "compare/subactor.www-marketplace-vs-subactor.www-observed-contact-url",
+  "version": "1.4.0",
+  "placement": {
+    "home": "wellmanifest",
+    "shape": "domain_pack",
+    "adopt": "wellmanifest/gui"
+  },
+  "left": {
+    "id": "subactor.www/marketplace",
+    "kind": "marketplace",
+    "intentKind": "marketplace",
+    "title": "Partner marketplace",
+    "url": "http://127.0.0.1:8781/marketplace",
+    "source": "observed"
+  },
+  "right": {
+    "id": "subactor.www/observed-contact-url",
+    "kind": "landing",
+    "intentKind": "panel",
+    "title": "Subactor — platforma autonomizacji procesów biznesowych",
+    "url": "http://127.0.0.1:8781/?action=contact&viewport=pc&item_view=table&lang=pl&currency=PLN&theme=dark&organization=info-softreck",
+    "source": "observed"
+  },
+  "comparable": "cross-kind",
+  "reason": "Different page.kind (marketplace vs landing) — do not treat as same-surface drift.",
+  "deltas": [
+    {
+      "kind": "colors",
+      "left": 5,
+      "right": 16,
+      "delta": 11
+    },
+    {
+      "kind": "font-sizes",
+      "left": 6,
+      "right": 3,
+      "delta": -3
+    },
+    {
+      "kind": "structure.viewport",
+      "left": false,
+      "right": true
+    },
+    {
+      "kind": "page.kind",
+      "left": "marketplace",
+      "right": "landing"
+    }
+  ],
+  "defects": [
+    {
+      "code": "GUI-PAGE-KIND-002",
+      "severity": "warn",
+      "message": "Different page.kind (marketplace vs landing) — do not treat as same-surface drift."
+    }
+  ],
+  "notes": [
+    "Compare kind first, then landmarks, then token budgets.",
+    "Colors/fonts HOME stays wellmanifest/brand + product brand — this is observed evidence.",
+    "Panel collections still use wellmanifest.gui/dsl/v1 surfaces."
+  ]
+}

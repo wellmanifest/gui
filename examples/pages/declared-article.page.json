@@ -1,0 +1,70 @@
+{
+  "schema": "wellmanifest.gui/page/v1",
+  "$schema": "https://wellmanifest.com/schemas/gui-page/v1",
+  "id": "example.product/legal-privacy",
+  "version": "1.4.0",
+  "title": "Polityka prywatności",
+  "placement": {
+    "home": "subactor",
+    "shape": "runtime_service",
+    "adopt": "wellmanifest/gui",
+    "runtimeOwner": "subactor"
+  },
+  "page": {
+    "kind": "article",
+    "intentKind": "article",
+    "role": "public",
+    "source": "declared",
+    "url": "https://example.test/legal/privacy",
+    "family": "content"
+  },
+  "structure": {
+    "landmarks": {
+      "main": true,
+      "footer": true,
+      "h1": "Polityka prywatności",
+      "form": false,
+      "article": true,
+      "listing": false,
+      "headingOutline": [
+        {
+          "tag": "H1",
+          "text": "Polityka prywatności"
+        }
+      ]
+    },
+    "chrome": {
+      "itemSectionToolbar": false,
+      "itemViewSwitch": false,
+      "sectionAddButton": false,
+      "sectionViewToolbar": false,
+      "viewport": false,
+      "itemView": false,
+      "hamburger": false
+    }
+  },
+  "visual": {
+    "budgets": {
+      "fontFamilies": 2,
+      "colors": 8,
+      "fontSizes": 6
+    },
+    "counts": {
+      "fontFamilies": 0,
+      "colors": 0,
+      "fontSizes": 0
+    },
+    "tokens": {
+      "fontFamilies": [],
+      "colors": [],
+      "fontSizes": []
+    }
+  },
+  "defects": [],
+  "appliesPrinciples": [
+    "site-footer",
+    "page-kind",
+    "visual-budget",
+    "heading-outline"
+  ]
+}

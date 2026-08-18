@@ -1,7 +1,12 @@
 # GUI DSL reference
 
-Schema: [`schemas/gui-dsl.schema.json`](../schemas/gui-dsl.schema.json)  
+Panel surfaces: [`schemas/gui-dsl.schema.json`](../schemas/gui-dsl.schema.json)  
 `$id`: `https://wellmanifest.com/schemas/gui-dsl/v1`
+
+Generic pages: [`schemas/gui-page.schema.json`](../schemas/gui-page.schema.json)  
+`$id`: `https://wellmanifest.com/schemas/gui-page/v1`
+
+Pack **1.4.0** keeps both. Do not put toolbars on a landing page document.
 
 ## Minimal document
 
@@ -105,6 +110,70 @@ chrome. Shared links restore state without reload.
 `projects`, `tasks` and `calendar` are contextual-chat actions, not organization
 rail leaves. A rail group `<summary>` opens `tab=group-<id>`. `support` is not a
 registry value; old URLs alias to `tasks`.
+
+## Generic page document (`page/v1`)
+
+Use this for any HTML/CSS/JS surface — not only the signed-in panel.
+
+```json
+{
+  "schema": "wellmanifest.gui/page/v1",
+  "id": "product/marketplace",
+  "version": "1.4.0",
+  "page": {
+    "kind": "marketplace",
+    "intentKind": "marketplace",
+    "role": "public",
+    "source": "observed",
+    "url": "http://127.0.0.1:8781/marketplace",
+    "family": "commerce"
+  },
+  "structure": {
+    "landmarks": { "main": true, "footer": true, "h1": "Partner marketplace" },
+    "chrome": { "itemSectionToolbar": false }
+  },
+  "visual": {
+    "budgets": { "fontFamilies": 3, "colors": 8, "fontSizes": 5 },
+    "counts": { "fontFamilies": 2, "colors": 5, "fontSizes": 6 }
+  },
+  "defects": [
+    { "code": "GUI-VIS-TYPE-001", "severity": "warn", "message": "6 font sizes (budget 5)" }
+  ]
+}
+```
+
+| `page.kind` | When | Panel toolbar required | Default budgets (families / colors / sizes) |
+| --- | --- | --- | --- |
+| `landing` | Marketing homepage | no | 3 / 16 / 8 |
+| `marketplace` | Catalog / partners | no | 3 / 8 / 5 |
+| `article` | Docs, legal, blog | no | 2 / 8 / 6 |
+| `form` | Contact, checkout | no | 2 / 10 / 6 |
+| `auth` | Login / register | no | 2 / 8 / 5 |
+| `panel` | Signed-in workspace | yes | 3 / 16 / 8 |
+
+Profiles live in `standard/gui.standard.v1.json` → `page_profiles`. Colors and
+fonts that are *allowed* stay in `wellmanifest/brand`. This DSL only counts
+what the page actually uses.
+
+### How to compare
+
+1. **Kind** — if `intentKind ≠ kind`, stop (`GUI-PAGE-KIND-001`). The contact
+   URL with `action=contact` that renders a marketing homepage is this case.
+2. **Landmarks** — main, H1, footer; panel also needs `.item-section-toolbar`.
+3. **Budgets** — too many families / colors / sizes → `GUI-VIS-FONT-001`,
+   `GUI-VIS-COLOR-001`, `GUI-VIS-TYPE-001`.
+4. **Same-kind tokens** — only then treat color/size deltas as drift.
+
+Generate from a live URL:
+
+```bash
+python3 scripts/probe-visual.py --intents marketplace,panel \
+  --out-dir examples/pages \
+  'http://127.0.0.1:8781/marketplace' \
+  'http://127.0.0.1:8781/?action=contact'
+```
+
+Checked-in examples: [`examples/pages/`](../examples/pages/).
 
 ## System chat
 
