@@ -15,6 +15,9 @@ GUI_ASSERT_VISIBLE ".section-view-toolbar"
 GUI_ASSERT_VISIBLE ".section-add-button"
 GUI_ASSERT_VISIBLE ".view-switch"
 GUI_ASSERT_VISIBLE ".infinite-scroll-footer"
+GUI_ASSERT_VISIBLE ".footer"
+GUI_ASSERT_VISIBLE "#global-viewport"
+GUI_ASSERT_VISIBLE "#global-item-view"
 
 GUI_EVAL "(() => { const bar=document.querySelector('.section-view-toolbar'); if(!bar) return 'NO_BAR'; const add=bar.querySelector('.section-add-button,[data-mode=add],[data-mode=import]'); const sw=bar.querySelector('.item-view-switch,.view-switch'); if(!add||!sw) return 'MISSING'; const createInSwitch=[...sw.querySelectorAll('button')].some(b=>{ const t=((b.getAttribute('data-mode')||'')+(b.title||'')+(b.textContent||'')).toLowerCase(); return /(^|[^a-z])(add|import|create|register)([^a-z]|$)/.test(t) && (b.classList.contains('item-view-button')); }); return createInSwitch ? 'CREATE_IN_SWITCH' : 'OK_ADD_LEFT'; })()"
 GUI_ASSERT_TEXT "OK_ADD_LEFT"
@@ -27,10 +30,26 @@ GUI_ASSERT_TEXT "OK_VIEW"
 GUI_EVAL "(() => new URL(location.href).searchParams.get('tab') || 'MISSING')()"
 GUI_ASSERT_TEXT "projects"
 
-# Responsive default: without view= the SPA must still render a presentation mode
-GUI_START "http://127.0.0.1:8781/?action=panel&tab=projects"
-WAIT 800
-GUI_EVAL "(() => { const pressed=[...document.querySelectorAll('.item-view-switch .item-view-button[aria-pressed=true]')]; if(!pressed.length) return 'NO_PRESSED'; const mode=pressed[0].getAttribute('data-mode')||''; return ['table','list','cards','panels'].includes(mode) ? 'OK_DEVICE_DEFAULT' : mode; })()"
-GUI_ASSERT_TEXT "OK_DEVICE_DEFAULT"
+# Viewport defaults write item_view, not view
+GUI_NAVIGATE "http://127.0.0.1:8781/?action=panel&lang=pl&viewport=tablet"
+WAIT 1200
+GUI_EVAL "(() => { const q=new URLSearchParams(location.search); const v=document.querySelector('#global-viewport')?.value; const i=document.querySelector('#global-item-view')?.value; if(v!=='tablet') return 'viewport='+v; if(i!=='cards') return 'item_view='+i; if(q.get('item_view') && q.get('item_view')!=='cards') return 'url_item_view='+q.get('item_view'); if(q.get('view')==='cards'||q.get('view')==='list'||q.get('view')==='table') return 'PRESENTATION_IN_VIEW'; return 'TABLET_PANELS'; })()"
+GUI_ASSERT_TEXT "TABLET_PANELS"
+
+GUI_NAVIGATE "http://127.0.0.1:8781/?action=panel&lang=pl&viewport=pc"
+WAIT 1200
+GUI_EVAL "(() => { const v=document.querySelector('#global-viewport')?.value; const i=document.querySelector('#global-item-view')?.value; if(v!=='pc') return 'viewport='+v; if(i!=='table') return 'item_view='+i; return 'PC_TABLE'; })()"
+GUI_ASSERT_TEXT "PC_TABLE"
+
+# Compact phone chrome at 375px
+GUI_NAVIGATE "http://127.0.0.1:8781/?action=panel&lang=pl&viewport=mobile"
+WAIT 1200
+GUI_ASSERT_VISIBLE ".mobile-menu-toggle"
+GUI_EVAL "document.documentElement.style.maxWidth='375px'; document.body.style.maxWidth='375px'; const root=document.documentElement; const overflow=root.scrollWidth>root.clientWidth+1; const rail=document.querySelector('.workspace-rail'); const railOn=rail&&getComputedStyle(rail).display!=='none'; const ham=document.querySelector('.mobile-menu-toggle'); const hamOn=ham&&getComputedStyle(ham).display!=='none'; if(overflow) return 'horizontal_overflow'; if(railOn) return 'rail_visible'; if(!hamOn) return 'hamburger_hidden'; return 'PHONE_OK';"
+GUI_ASSERT_TEXT "PHONE_OK"
+
+# Support is not a rail leaf
+GUI_EVAL "(() => { const rail=document.querySelector('.workspace-rail')||document.body; const text=(rail.textContent||'').toLowerCase(); const supportLeaf=rail.querySelector('[data-tab=support],button[data-tab=support],a[href*=\"tab=support\"]'); return supportLeaf || /\bwsparcie\b/.test(text) && rail.querySelector('[data-nav-id=support]') ? 'SUPPORT_LEAF' : 'SUPPORT_RETIRED'; })()"
+GUI_ASSERT_TEXT "SUPPORT_RETIRED"
 
 GUI_STOP

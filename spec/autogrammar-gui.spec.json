@@ -5,7 +5,11 @@
     {
       "name": "TOOLBAR_STRUCTURE",
       "pattern": "<div class=\"item-section-toolbar\">...</div>",
-      "required_child_tags": [".panel-section-title", ".section-view-toolbar", ".item-view-switch"]
+      "required_child_tags": [
+        ".panel-section-title",
+        ".section-view-toolbar",
+        ".item-view-switch"
+      ]
     },
     {
       "name": "CREATE_PRIMARY_BUTTON_LEFT",
@@ -21,6 +25,36 @@
       "name": "NO_UNICODE_EMOJI_CONTROLS",
       "pattern": "<button>...",
       "constraint": "Control icons MUST use <Icon name='...' /> or <svg> rather than emoji symbols"
+    },
+    {
+      "name": "GLOBAL_ITEM_VIEW_DELEGATION",
+      "pattern": "<select id=\"global-item-view\">...</select>",
+      "constraint": "Section toolbars delegate standard item view modes to global view selector; no duplicate inline buttons"
+    },
+    {
+      "name": "WORKSPACE_RAIL_ORGANIZATION_NAV",
+      "pattern": "<nav class=\"workspace-rail-nav workspace-rail-primary-nav\"><select id=\"active-organization\">...</select></nav>",
+      "constraint": "On viewport=pc the organization switcher lives uncollapsed in the primary workspace rail with '+ Nowa organizacja…'; compact viewports use the drawer; no navbar brand-row duplicate"
+    },
+    {
+      "name": "URL_CHROME_VS_SECTION",
+      "pattern": "item_view=cards&viewport=tablet&view=add",
+      "constraint": "view= is section/create mode only; presentation is item_view=; tenant is organization=; org= is a filter"
+    },
+    {
+      "name": "VIEWPORT_PRESET_DEFAULTS",
+      "pattern": "<select id=\"global-viewport\">mobile|tablet|pc</select>",
+      "constraint": "tablet and mobile default item_view=cards; pc defaults to table; 375px mobile has no horizontal overflow and hides the rail"
+    },
+    {
+      "name": "CONTEXTUAL_WORK_AND_GROUP_OVERVIEW",
+      "pattern": "tab=group-infrastructure .panel-contextual-chat-actions",
+      "constraint": "projects/tasks/calendar are contextual chat actions; rail summary opens group overview; support is not a registry leaf"
+    },
+    {
+      "name": "SITE_FOOTER",
+      "pattern": "<footer class=\"footer\">...</footer>",
+      "constraint": "One site footer on public and app chrome; do not inject a second footer into #root"
     }
   ]
 }

@@ -2,9 +2,9 @@
   "schema": "wellmanifest.gui/standard/v1",
   "$id": "https://wellmanifest.com/schemas/gui/standard/v1",
   "id": "wellmanifest/gui",
-  "version": 2,
+  "version": 4,
   "status": "canonical",
-  "updated": "2026-08-16",
+  "updated": "2026-08-18",
   "title": "GUI standardization (wellmanifest/gui)",
   "standardOwner": "wellmanifest",
   "placement": {
@@ -22,17 +22,27 @@
     {
       "id": "view-switch-modes",
       "name": "Multi-mode presentation",
-      "requirement": "Data sections support switching presentation modes (cards, table, list, matrix, …) without a full page reload. View-switch contains presentation modes only."
+      "requirement": "Data sections support switching presentation modes (cards, table, list, matrix, …) without a full page reload. View-switch contains presentation modes only. Standard modes are written to item_view=, never to view=."
     },
     {
       "id": "create-primary-button-left",
       "name": "Create via primary Add button",
-      "requirement": "Preferred identities-style layout: a primary Add/create button sits to the LEFT of .item-view-switch on the same toolbar row (.section-view-toolbar). The view-switch MUST NOT include add/import/create/register as a mode. Clicking Add opens the create form and sets the same URL view param (view=add|import|…). Do not keep a duplicate create mode inside the switch. Do not duplicate a leading '+' character when an SVG plus icon is already present. Legacy create-last-in-switch is superseded by this layout."
+      "requirement": "Preferred identities-style layout: a primary Add/create button sits to the LEFT of .item-view-switch on the same toolbar row (.section-view-toolbar). The view-switch MUST NOT include add/import/create/register as a mode. Clicking Add opens the create form and sets the section-mode param view=add|import|…. Do not keep a duplicate create mode inside the switch. Do not duplicate a leading '+' character when an SVG plus icon is already present. Legacy create-last-in-switch is superseded by this layout."
+    },
+    {
+      "id": "viewport-preset-defaults",
+      "name": "Viewport preset and default item_view",
+      "requirement": "Chrome select #global-viewport writes viewport=mobile|tablet|pc. When item_view= is absent (and the user has not pinned a presentation mode), apply the preset default: tablet → cards (Panele); pc → table (Tabela); mobile → cards. Switching viewport reapplies that preset default. Afterwards item_view and viewport stay independent. Do not encode presentation in view=. view=panels remains an alias only when reading legacy URLs; write item_view=cards."
     },
     {
       "id": "responsive-default-view",
       "name": "Device-aware default view",
-      "requirement": "When the URL has no explicit view= (and the user has not pinned a view in session storage), auto-select a presentation mode from breakpoints: desktop → table; small tablet or portrait/pivot orientation → list; small mobile/smartphone → panels (alias of cards). Explicit view= always wins. Optional session/local pin must not override an explicit URL. view=panels is accepted as an alias for cards."
+      "requirement": "Superseded for presentation by viewport-preset-defaults. When neither viewport= nor item_view= is present, infer the viewport from width (pc >1024, tablet ≤1024, mobile ≤640) and apply the same defaults (tablet/mobile → cards, pc → table). Explicit item_view= always wins. Optional session/local pin must not override an explicit URL."
+    },
+    {
+      "id": "drawer-vs-rail",
+      "name": "Drawer on compact viewports, rail on PC",
+      "requirement": "On viewport=pc the primary workspace rail stays visible with #active-organization. On viewport=mobile and viewport=tablet the rail is hidden; a hamburger opens a drawer built from the same PANEL_NAV and the same organization select (same options, including value=__new__). The top navbar brand row must not duplicate the tenant switcher. Compact viewports use width 100% (not 100vw) and overflow-x clip; 375px must not scroll horizontally."
     },
     {
       "id": "section-view-toolbar-full-width",
@@ -52,22 +62,47 @@
     {
       "id": "url-state-persistence",
       "name": "URL state sync",
-      "requirement": "Panel state is shareable via history.replaceState without full reload. Canonical params: tab, view, nested selection ids (project/host/org/…), registry, tag, filter."
+      "requirement": "Panel state is shareable without full reload. Layered history: tab changes use history.pushState; chrome (viewport, item_view, lang, currency, theme, organization, menu) uses history.replaceState. Canonical section params: tab, view (create/section mode only), nested selection ids (project/host/org/…), registry, tag, filter. Canonical chrome params: viewport, item_view, lang, currency, theme, organization, last, trail, menu."
+    },
+    {
+      "id": "tenant-vs-org-filter",
+      "name": "organization tenant vs org filter",
+      "requirement": "organization= is the active tenant slug (membership switch). org= remains a project/collection filter under a tab. Do not reuse org= for the tenant. A shareable URL with organization= that names a membership MUST restore that tenant."
+    },
+    {
+      "id": "action-trail",
+      "name": "Last actions in the URL",
+      "requirement": "Tab navigation records last=<previous-tab> and trail=<up to 4 prior tab ids, comma-separated, sanitized [a-z0-9-]>. Back/forward restores tab from history. Do not put secrets, tokens or PII in last/trail."
+    },
+    {
+      "id": "contextual-work-tabs",
+      "name": "Contextual work tabs",
+      "requirement": "Projects, tasks and calendar are panel tabs driven from contextual chat actions (.panel-contextual-chat-actions), not leaves of the organization rail. QUERY is read-only local context and never a mutating ticket POST. Ticket submit stays propose-only."
+    },
+    {
+      "id": "group-overview",
+      "name": "Rail group overview",
+      "requirement": "Clicking a rail group <summary> opens a graphical group overview (topology, relations, stats, logs) at tab=group-<group-id> (e.g. group-infrastructure). It must not silently select the first leaf of that group."
+    },
+    {
+      "id": "support-retired",
+      "name": "Support is not a rail registry",
+      "requirement": "Do not expose support as an organization-rail leaf or as a registry= enum value. tab=support and registry=support alias to the shared tasks ticket store. Client-thread sharing requires consent; do not treat support as a second ticket database."
     },
     {
       "id": "org-project-artifact-hierarchy",
       "name": "Org → project → artifacts",
-      "requirement": "When projects exist, present org filter, project list, then project detail with tickets/artifacts. IA order preference: system chat → account → integrations → … → projects → organization registers."
+      "requirement": "When projects exist, present org filter, project list, then project detail with tickets/artifacts. IA order preference: contextual chat actions (projects/tasks/calendar) stay available on every tab; organization rail is tenants and registers only — not projects, tasks, calendar or support."
     },
     {
       "id": "domain-vs-presentation",
       "name": "Domain tabs vs presentation views",
-      "requirement": "Top-nav tab (URL tab=) identifies one content domain. View-switch (URL view=) changes presentation or create mode only (cards|table|list|matrix|kanban|agenda|…|add|import). Unrelated domains MUST NOT share one tab behind fake view modes — split into separate tabs (e.g. integrations vs mcp vs a2a) or use nested filters (registry=, tag=, filter=, org=)."
+      "requirement": "Top-nav tab (URL tab=) identifies one content domain. Section view= is create/section mode only (add|import|list|…). Presentation is item_view= (cards|table|list|matrix|kanban|agenda|…) plus viewport=. Unrelated domains MUST NOT share one tab behind fake view modes — split into separate tabs (e.g. integrations vs mcp vs a2a) or use nested filters (registry=, tag=, filter=, org=)."
     },
     {
       "id": "connector-registry",
       "name": "Connector registry filters",
-      "requirement": "MCP and A2A are separate top-level tabs (or a dedicated connectors tab with registry=mcp|a2a). Each uses presentation view-switch plus tag/text filters. Register via the primary Add button (not as a view-switch domain mode). New entries prepend. Do not nest MCP/A2A inside the API integrations catalogue tab."
+      "requirement": "MCP and A2A are separate top-level tabs (or a dedicated connectors tab with registry=mcp|a2a). Each uses presentation item_view plus tag/text filters. Register via the primary Add button (not as a view-switch domain mode). New entries prepend. Do not nest MCP/A2A inside the API integrations catalogue tab."
     },
     {
       "id": "system-chat-surface",
@@ -75,19 +110,48 @@
       "requirement": "When a system chat surface exists (e.g. OpenWebUI), durable URL configuration is account/hosting + server-side injection (env / PHP window global). Browser-only localStorage is optional override, never the sole persistence. Unavailable services fail gracefully."
     },
     {
+      "id": "site-footer",
+      "name": "One site footer",
+      "requirement": "Public pages and the signed-in app share one <footer class=\"footer\"> with product line plus compare/registry/marketplace/legal/contact links. Do not keep a second footer-links or product-specific Plesk/SaaS blurb. SPA shells with id=root render the footer in the app; PHP must not inject a duplicate."
+    },
+    {
       "id": "svg-iconography",
       "name": "Inline SVG icons",
       "requirement": "Navigation and action icons use inline SVG components. Unicode/emoji as control icons are forbidden."
+    },
+    {
+      "id": "global-item-view-delegation",
+      "name": "Global item-view delegation",
+      "requirement": "When a global item-view selector (e.g. #global-item-view) is present, section toolbars delegate standard presentation switching (cards, table, list) to the global control and MUST NOT render redundant duplicate inline mode buttons. The global control writes item_view=, not view=."
+    },
+    {
+      "id": "workspace-rail-organization-switcher",
+      "name": "Workspace rail organization switcher",
+      "requirement": "In multi-tenant SaaS panels on viewport=pc, the primary rail navigation must expose an uncollapsed organization switcher (<select id='active-organization'>) with an inline '+ Nowa organizacja…' option. Switching organization writes organization=<slug> and establishes context on organization configuration (tab=configuration) unless the URL already names another allowed tab. Compact viewports place the same select in the drawer. The switcher must not be duplicated in the top navbar brand row."
     }
   ],
   "url_query_contract": {
+    "history": {
+      "tab": "pushState",
+      "chrome": "replaceState",
+      "section": "replaceState"
+    },
     "params": {
-      "tab": "Top-level panel section id",
-      "view": "Active presentation or create mode (cards|table|list|add|import|…)",
+      "tab": "Top-level panel section id, including group-<id> overview tabs",
+      "view": "Section/create mode only (add|import|list|…). Not presentation.",
+      "item_view": "Presentation mode from #global-item-view (cards|list|table|…)",
+      "viewport": "Chrome preset from #global-viewport (mobile|tablet|pc)",
+      "lang": "UI language; always written, including lang=pl",
+      "currency": "Display currency",
+      "theme": "Theme id (dark|light|contrast|…)",
+      "organization": "Active tenant slug (membership). Not org.",
+      "last": "Previous tab id after a user click",
+      "trail": "Up to 4 prior tab ids, comma-separated",
+      "menu": "open when the compact drawer is open; omit when closed",
       "project": "Selected project id",
       "host": "Selected host id",
-      "org": "Organization filter",
-      "registry": "Domain filter under a tab (organization: clients|contacts|contracts|support; connectors legacy: mcp|a2a when not top-level tabs)",
+      "org": "Project/collection filter — not the tenant",
+      "registry": "Domain filter under a tab (organization: clients|contacts|contracts; connectors legacy: mcp|a2a when not top-level tabs). support is retired.",
       "tag": "Active tag filter",
       "filter": "Free-text filter"
     }
@@ -99,8 +163,14 @@
       "GUI_ASSERT_VISIBLE .section-view-toolbar when multi-mode",
       "GUI_ASSERT_VISIBLE primary .section-add-button left of view-switch",
       "View-switch contains no create/import/add/register mode",
-      "Without view= URL, device default selects table|list|cards/panels",
-      "URL reflects tab and view without reload",
+      "Without item_view=, viewport=tablet selects cards and viewport=pc selects table",
+      "URL writes item_view and viewport separately from view",
+      "URL writes organization (tenant) separately from org (filter)",
+      "Tab change uses push history and sets last=",
+      "viewport=mobile at 375px: no horizontal overflow, rail hidden, hamburger visible",
+      "Organization rail has no support leaf; tab=support opens tasks",
+      "Rail group summary opens data-group-overview",
+      "One footer.class=footer on public and app chrome",
       "Infinite-scroll footer present on production collections"
     ],
     "example_scenario": "examples/testql/gui-standardization.testql"

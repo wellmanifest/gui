@@ -1,7 +1,7 @@
 {
   "$schema": "./schemas/gui-dsl.schema.v1.json",
   "id": "wellmanifest/gui",
-  "version": "1.1.0",
+  "version": "1.3.0",
   "title": "Universal GUI DSL & Verification Contract Standard",
   "status": "canonical",
   "standardOwner": "wellmanifest",
@@ -43,11 +43,23 @@
       },
       {
         "id": "RULE_URL_STATE_SYNC",
-        "description": "State changes MUST synchronize reactive query parameters (tab, view) without page reload."
+        "description": "State changes MUST synchronize tab, section view, item_view, viewport and organization without page reload. Presentation MUST NOT be written to view=."
       },
       {
         "id": "RULE_INLINE_SVG_ONLY",
         "description": "Control icons MUST use inline SVG elements rather than raw Unicode/Emoji characters."
+      },
+      {
+        "id": "RULE_VIEWPORT_ITEM_VIEW",
+        "description": "viewport=tablet defaults to item_view=cards; viewport=pc defaults to table; compact viewports use a drawer and 100% width."
+      },
+      {
+        "id": "RULE_SUPPORT_RETIRED",
+        "description": "support MUST NOT appear as an organization-rail leaf or registry enum; tab=support aliases to tasks."
+      },
+      {
+        "id": "RULE_SITE_FOOTER",
+        "description": "Public and app chrome share one footer.footer; SPA #root MUST NOT receive a duplicate injected footer."
       }
     ]
   },
@@ -61,7 +73,11 @@
       "GUI_ASSERT_VISIBLE .infinite-scroll-footer",
       "GUI_ASSERT_TEXT .panel-section-title",
       "GUI_ASSERT_URL_PARAM tab",
-      "GUI_ASSERT_URL_PARAM view"
+      "GUI_ASSERT_URL_PARAM view",
+      "GUI_ASSERT_URL_PARAM item_view",
+      "GUI_ASSERT_URL_PARAM viewport",
+      "GUI_ASSERT_VISIBLE .footer",
+      "GUI_ASSERT_VISIBLE #global-viewport"
     ]
   }
 }

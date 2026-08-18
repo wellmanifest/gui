@@ -2,7 +2,7 @@
   "schema": "wellmanifest.gui/dsl/v1",
   "$schema": "https://wellmanifest.com/schemas/gui-dsl/v1",
   "id": "subactor.www/panel",
-  "version": "1.1.0",
+  "version": "1.3.0",
   "title": "Subactor portal panel (ADOPT example)",
   "placement": {
     "home": "subactor",
@@ -11,10 +11,13 @@
     "runtimeOwner": "subactor"
   },
   "urlState": {
-    "strategy": "replaceState",
+    "strategy": "layered",
     "params": {
       "tab": "tab",
       "view": "view",
+      "item_view": "item_view",
+      "viewport": "viewport",
+      "chrome": ["lang", "currency", "theme", "organization", "last", "trail", "menu"],
       "nested": ["project", "host", "org", "registry", "tag", "filter"]
     }
   },
@@ -36,12 +39,22 @@
       }
     },
     {
-      "id": "account",
+      "id": "configuration",
       "kind": "account",
-      "tab": "account",
+      "tab": "configuration",
       "toolbar": {
-        "selector": ".section-head",
-        "titleSelector": ".section-title",
+        "selector": ".item-section-toolbar",
+        "titleSelector": ".panel-section-title",
+        "icon": "svg-inline"
+      }
+    },
+    {
+      "id": "api-tokens",
+      "kind": "section",
+      "tab": "api-tokens",
+      "toolbar": {
+        "selector": ".item-section-toolbar",
+        "titleSelector": ".panel-section-title",
         "icon": "svg-inline"
       }
     },
@@ -72,8 +85,13 @@
       "prependOnCreate": true
     },
     {
+      "id": "group-infrastructure",
+      "kind": "group-overview",
+      "tab": "group-infrastructure"
+    },
+    {
       "id": "projects",
-      "kind": "hierarchy",
+      "kind": "contextual-work",
       "tab": "projects",
       "toolbar": {
         "selector": ".item-section-toolbar",
@@ -96,9 +114,9 @@
       "prependOnCreate": true
     },
     {
-      "id": "integrations",
+      "id": "rest-api",
       "kind": "connector-registry",
-      "tab": "integrations",
+      "tab": "rest-api",
       "toolbar": {
         "selector": ".item-section-toolbar",
         "titleSelector": ".panel-section-title",
@@ -134,7 +152,13 @@
       "addButton": ".section-add-button",
       "viewSwitch": ".item-view-switch",
       "scrollFooter": ".infinite-scroll-footer",
-      "sectionTitle": ".panel-section-title"
+      "sectionTitle": ".panel-section-title",
+      "siteFooter": ".footer",
+      "viewport": "#global-viewport",
+      "itemView": "#global-item-view",
+      "theme": "#nav-theme",
+      "hamburger": ".mobile-menu-toggle",
+      "groupOverview": "[data-group-overview]"
     }
   }
 }

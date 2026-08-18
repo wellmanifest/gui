@@ -1,5 +1,6 @@
 # TestQL GUI Standardization Assertion Suite
 # Schema: subactor.testql/v1
+# HOME wellmanifest/gui 1.3.0 — create-last-in-switch is withdrawn.
 
 SUITE "wellmanifest-gui-standardization" {
   TARGET "http://127.0.0.1:8781/?action=panel&currency=PLN"
@@ -23,5 +24,30 @@ SUITE "wellmanifest-gui-standardization" {
 
   TEST "verify_infinite_scroll_footer" {
     ASSERT_VISIBLE ".infinite-scroll-footer"
+  }
+
+  TEST "verify_site_footer" {
+    ASSERT_VISIBLE ".footer"
+  }
+
+  TEST "verify_workspace_rail_org_nav" {
+    ASSERT_VISIBLE ".workspace-rail-primary-nav .organization-switcher-select"
+    ASSERT_NOT_EXISTS ".navbar-start .organization-switcher"
+  }
+
+  TEST "verify_global_item_view_select" {
+    ASSERT_VISIBLE "#global-item-view"
+    ASSERT_VISIBLE "#global-viewport"
+  }
+
+  TEST "verify_chrome_url_contract" {
+    ASSERT_URL_PARAM_NOT "view=list"
+    ASSERT_EXISTS "#nav-language"
+    ASSERT_EXISTS "#nav-currency"
+  }
+
+  TEST "verify_support_retired" {
+    ASSERT_NOT_EXISTS "[data-tab=support]"
+    ASSERT_NOT_EXISTS "[data-nav-id=support]"
   }
 }

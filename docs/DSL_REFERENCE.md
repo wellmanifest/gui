@@ -9,7 +9,7 @@ Schema: [`schemas/gui-dsl.schema.json`](../schemas/gui-dsl.schema.json)
 {
   "schema": "wellmanifest.gui/dsl/v1",
   "id": "example.product/panel",
-  "version": "1.1.0",
+  "version": "1.3.0",
   "placement": {
     "home": "subactor",
     "shape": "runtime_service",
@@ -17,10 +17,13 @@ Schema: [`schemas/gui-dsl.schema.json`](../schemas/gui-dsl.schema.json)
     "runtimeOwner": "subactor"
   },
   "urlState": {
-    "strategy": "replaceState",
+    "strategy": "layered",
     "params": {
       "tab": "tab",
       "view": "view",
+      "item_view": "item_view",
+      "viewport": "viewport",
+      "chrome": ["lang", "currency", "theme", "organization", "last", "trail", "menu"],
       "nested": ["project", "host", "org", "registry", "tag", "filter"]
     }
   },
@@ -66,29 +69,42 @@ Clicking Add opens the create form and sets `view` to the create mode id
 (`add` / `import` / …). Do not put create modes inside the switch, and do not
 keep both an Add button and a create mode in the switch.
 
-## Responsive default view
+## Viewport + item_view
 
-When the shareable URL has **no** `view=` (and the user has not pinned a view in
-session storage), pick a presentation mode from the viewport:
+`#global-viewport` writes `viewport=mobile|tablet|pc`. `#global-item-view`
+writes `item_view=cards|list|table`. Defaults when `item_view=` is absent:
 
-| Device | Default |
+| Viewport | Default `item_view` |
 | --- | --- |
-| Desktop | `table` |
-| Small tablet or portrait/pivot | `list` |
-| Smartphone | `panels` (alias of `cards`) |
+| `pc` | `table` |
+| `tablet` | `cards` |
+| `mobile` | `cards` |
 
-Explicit `view=` always wins. Optional session pins must not override the URL.
+Do not write presentation into `view=`. Legacy `view=cards|table|list|panels`
+MAY be read once and migrated to `item_view=`.
 
 ## URL state
 
 | Param | Meaning |
 | --- | --- |
-| `tab` | Top-level surface |
-| `view` | Active presentation or create mode |
-| nested (`project`, `host`, `org`, …) | Selection under a tab |
-| `registry` / `tag` / `filter` | Connector catalog controls |
+| `tab` | Top-level surface, including `group-<id>` |
+| `view` | Section/create mode only (`add` / `import` / …) |
+| `item_view` | Presentation from `#global-item-view` |
+| `viewport` | Preset from `#global-viewport` |
+| `organization` | Active tenant slug |
+| `org` | Project/collection filter |
+| `last` / `trail` | Previous tab clicks |
+| `lang` / `currency` / `theme` / `menu` | Other `nav-controls` chrome |
+| nested (`project`, `host`, `registry`, `tag`, `filter`) | Selection under a tab |
 
-Use `history.replaceState` (default) so shared links restore state without reload.
+History is **layered**: `pushState` on tab (so Back works), `replaceState` on
+chrome. Shared links restore state without reload.
+
+## Contextual work and groups
+
+`projects`, `tasks` and `calendar` are contextual-chat actions, not organization
+rail leaves. A rail group `<summary>` opens `tab=group-<id>`. `support` is not a
+registry value; old URLs alias to `tasks`.
 
 ## System chat
 

@@ -6,7 +6,7 @@ Standardized declarative specification for web application interfaces, SaaS admi
 
 - **Declarative GUI DSL**: Define toolbars, view modes, forms, matrix tables, and list footers in structured JSON/YAML schemas.
 - **Layout Standardization**: Enforces `.item-section-toolbar`, inline SVG iconography, and responsive mode switching.
-- **State & URL Synchronization**: Universal query parameter persistence for deep-linking (`tab`, `view`, `filter`, `registry`).
+- **State & URL Synchronization**: Layered query persistence — `tab` / section `view` plus chrome (`viewport`, `item_view`, `organization`, `lang`, `currency`, `theme`, `last`, `trail`).
 - **Autogrammar & TestQL Test Harness**: Automated structural assertions for element visibility, mode transition validation, and regression testing.
 
 ## Placement & Governance
