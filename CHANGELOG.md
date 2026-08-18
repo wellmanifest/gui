@@ -1,6 +1,10 @@
 # Changelog
 
 ## [1.4.0] - 2026-08-18
+### Fixed
+- `infer_kind`: a page with a form and `contact`/`kontakt` in the URL or title
+  is `form`, even when a marketing heading outline is still long.
+
 ### Added
 - Generic **page DSL** `wellmanifest.gui/page/v1` for landing, marketplace,
   article, form, auth, and panel. Panel collection contracts stay on

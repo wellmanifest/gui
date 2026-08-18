@@ -88,6 +88,14 @@ assert cmp_ml.get("schema") == "wellmanifest.gui/page-compare/v1"
 assert cmp_ml.get("comparable") == "cross-kind"
 assert cmp_intent.get("comparable") == "intent-mismatch"
 
+sys.path.insert(0, "scripts")
+from gui_page import infer_kind
+assert infer_kind(
+    "http://127.0.0.1:8789/?action=contact",
+    "Subactor",
+    {"landmarks": {"form": True, "headingOutline": [{}, {}, {}, {}, {}]}, "chrome": {}},
+) == "form"
+
 print("ok: wellmanifest/gui validate")
 PY
 
