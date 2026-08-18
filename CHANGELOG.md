@@ -7,6 +7,7 @@
 - Probe `listing` landmark also matches `main table` (not only product class names).
 - `infer_kind`: a listing landmark alone does not override a long marketing
   heading outline (landing preview tables stay `landing`).
+- `kind=article` without an `article` landmark is `GUI-VIS-STRUCT-005`.
 
 ### Added
 - Generic **page DSL** `wellmanifest.gui/page/v1` for landing, marketplace,

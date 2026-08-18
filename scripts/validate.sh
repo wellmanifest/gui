@@ -103,6 +103,13 @@ assert infer_kind(
     "Subactor",
     {"landmarks": {"listing": True, "headingOutline": [{}, {}, {}, {}, {}]}, "chrome": {}},
 ) == "landing"
+from gui_page import defects_for_page
+article_defects = defects_for_page({
+    "page": {"kind": "article"},
+    "visual": {"budgets": {"fontFamilies": 2, "colors": 8, "fontSizes": 6}, "counts": {}},
+    "structure": {"landmarks": {"main": True, "footer": True, "h1": "Legal", "article": False}, "chrome": {}},
+})
+assert any(d["code"] == "GUI-VIS-STRUCT-005" for d in article_defects)
 
 print("ok: wellmanifest/gui validate")
 PY

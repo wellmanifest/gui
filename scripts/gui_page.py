@@ -138,6 +138,12 @@ def defects_for_page(page: dict[str, Any]) -> list[dict[str, Any]]:
             "severity": "error",
             "message": "missing main landmark",
         })
+    if kind == "article" and not landmarks.get("article"):
+        defects.append({
+            "code": "GUI-VIS-STRUCT-005",
+            "severity": "warn",
+            "message": "kind=article missing article landmark",
+        })
 
     needs_chrome = kind == "panel" or intent == "panel"
     if needs_chrome and not chrome.get("itemSectionToolbar"):
