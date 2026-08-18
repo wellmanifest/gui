@@ -8,6 +8,7 @@
 - `infer_kind`: a listing landmark alone does not override a long marketing
   heading outline (landing preview tables stay `landing`).
 - `kind=article` without an `article` landmark is `GUI-VIS-STRUCT-005`.
+- A `heading-outline` page with H1 and no H2 is `GUI-VIS-STRUCT-006`.
 
 ### Added
 - Generic **page DSL** `wellmanifest.gui/page/v1` for landing, marketplace,

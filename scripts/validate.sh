@@ -110,6 +110,22 @@ article_defects = defects_for_page({
     "structure": {"landmarks": {"main": True, "footer": True, "h1": "Legal", "article": False}, "chrome": {}},
 })
 assert any(d["code"] == "GUI-VIS-STRUCT-005" for d in article_defects)
+thin = defects_for_page({
+    "page": {"kind": "article"},
+    "appliesPrinciples": ["heading-outline"],
+    "visual": {"budgets": {"fontFamilies": 2, "colors": 8, "fontSizes": 6}, "counts": {}},
+    "structure": {
+        "landmarks": {
+            "main": True,
+            "footer": True,
+            "h1": "Compare",
+            "article": True,
+            "headingOutline": [{"tag": "H1", "text": "Compare"}],
+        },
+        "chrome": {},
+    },
+})
+assert any(d["code"] == "GUI-VIS-STRUCT-006" for d in thin)
 
 print("ok: wellmanifest/gui validate")
 PY

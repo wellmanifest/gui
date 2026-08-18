@@ -147,7 +147,7 @@
     {
       "id": "heading-outline",
       "name": "Heading outline",
-      "requirement": "Public marketing and content pages expose one H1 and a readable H2/H3 outline in page.structure.landmarks.headingOutline. Missing H1 is GUI-VIS-STRUCT-003. Missing main is GUI-VIS-STRUCT-004. kind=article without an article landmark is GUI-VIS-STRUCT-005."
+      "requirement": "Public marketing and content pages expose one H1 and a readable H2/H3 outline in page.structure.landmarks.headingOutline. Missing H1 is GUI-VIS-STRUCT-003. Missing main is GUI-VIS-STRUCT-004. kind=article without an article landmark is GUI-VIS-STRUCT-005. H1 without H2 on a heading-outline page is GUI-VIS-STRUCT-006."
     },
     {
       "id": "compare-kind-first",

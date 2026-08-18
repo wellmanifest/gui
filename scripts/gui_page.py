@@ -144,6 +144,20 @@ def defects_for_page(page: dict[str, Any]) -> list[dict[str, Any]]:
             "severity": "warn",
             "message": "kind=article missing article landmark",
         })
+    applies = page.get("appliesPrinciples") or []
+    if "heading-outline" in applies:
+        outline = landmarks.get("headingOutline") or []
+        tags = {
+            str(row.get("tag") or "").upper()
+            for row in outline
+            if isinstance(row, dict)
+        }
+        if tags and "H1" in tags and "H2" not in tags:
+            defects.append({
+                "code": "GUI-VIS-STRUCT-006",
+                "severity": "warn",
+                "message": "heading outline has H1 but no H2",
+            })
 
     needs_chrome = kind == "panel" or intent == "panel"
     if needs_chrome and not chrome.get("itemSectionToolbar"):
