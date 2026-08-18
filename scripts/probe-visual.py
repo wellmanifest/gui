@@ -56,7 +56,7 @@ EXTRACT_JS = r"""
         h1: h1 ? h1.text : null,
         form: sel("form"),
         article: sel("article"),
-        listing: sel("[data-listing], .marketplace-grid, .partner-list, .catalog-list"),
+        listing: sel("[data-listing], .marketplace-grid, .partner-list, .catalog-list, main table"),
         headingOutline: headings,
       },
       chrome: {

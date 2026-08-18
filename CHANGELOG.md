@@ -4,6 +4,9 @@
 ### Fixed
 - `infer_kind`: a page with a form and `contact`/`kontakt` in the URL or title
   is `form`, even when a marketing heading outline is still long.
+- Probe `listing` landmark also matches `main table` (not only product class names).
+- `infer_kind`: a listing landmark alone does not override a long marketing
+  heading outline (landing preview tables stay `landing`).
 
 ### Added
 - Generic **page DSL** `wellmanifest.gui/page/v1` for landing, marketplace,
