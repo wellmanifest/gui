@@ -33,3 +33,7 @@ Run TestQL assertions:
 ```bash
 ./project.sh test
 ```
+
+Whole-site (sitemap, nav, SEO, cross-page drift) lives in the composing pack
+[`wellmanifest/webpage`](https://github.com/wellmanifest/webpage) —
+`wellmanifest.webpage/site-audit/v1`.

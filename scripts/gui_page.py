@@ -55,7 +55,9 @@ def infer_kind(url: str, title: str, structure: dict[str, Any]) -> str:
         return "panel"
     if landmarks.get("form") and re.search(r"login|signin|sign-in|register|auth", blob):
         return "auth"
-    if "marketplace" in blob or "catalog" in blob or landmarks.get("listing"):
+    if re.search(r"legal|privacy|terms|compare|porown", blob):
+        return "article"
+    if "marketplace" in blob or "catalog" in blob or "registry" in blob or landmarks.get("listing"):
         return "marketplace"
     if landmarks.get("form") and not landmarks.get("listing") and len(headings) <= 3:
         return "form"
