@@ -70,6 +70,26 @@
       "name": "VISUAL_BUDGET",
       "pattern": "visual.counts <= page_profiles[kind].visualBudgets",
       "constraint": "Font-family, color and font-size counts stay within the kind profile; not a brand SSOT"
+    },
+    {
+      "name": "ACTION_SURFACE_PARITY",
+      "pattern": "rendered action identity -> registry -> resolver -> dispatch",
+      "constraint": "No visible action is inert, duplicated, or backed by a separately authored command list"
+    },
+    {
+      "name": "INTERACTION_CAPABILITY_TRUTH",
+      "pattern": "advertised interaction <= active input driver capabilities",
+      "constraint": "Do not advertise letters, arrows, clicks, completion, or submit behavior without executable coverage"
+    },
+    {
+      "name": "RUNTIME_PROVENANCE_VISIBLE",
+      "pattern": "runtime source posture = released|development|unknown",
+      "constraint": "Dirty, detached, stale, or unbound sources are never presented as canonical released UI"
+    },
+    {
+      "name": "OBSERVATION_CURRENCY",
+      "pattern": "projection source + observed_at + freshness",
+      "constraint": "Cached and mixed-source data is not labelled current without currency evidence"
     }
   ]
 }

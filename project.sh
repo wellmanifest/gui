@@ -16,7 +16,7 @@ case "$cmd" in
         const fs = require('fs');
         const manifest = JSON.parse(fs.readFileSync('$repo_root/dsl-manifest.json', 'utf8'));
         if (manifest.id !== 'wellmanifest/gui') throw new Error('Invalid manifest id');
-        if (manifest.version !== '1.4.0') throw new Error('Unexpected manifest version');
+        if (manifest.version !== '1.5.0') throw new Error('Unexpected manifest version');
         console.log('✔ dsl-manifest.json valid (version ' + manifest.version + ')');
       "
     else

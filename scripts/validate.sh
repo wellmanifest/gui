@@ -25,8 +25,8 @@ schema = json.loads((root / "schemas/gui-dsl.schema.json").read_text())
 page_schema = json.loads((root / "schemas/gui-page.schema.json").read_text())
 example = json.loads((root / "examples/panel.gui.json").read_text())
 
-assert version == "1.4.0", version
-assert standard.get("version") == 5
+assert version == "1.5.0", version
+assert standard.get("version") == 6
 assert standard.get("placement", {}).get("home") == "wellmanifest"
 assert standard.get("placement", {}).get("shape") == "domain_pack"
 assert standard.get("authority") == "propose-only"
@@ -67,6 +67,10 @@ assert "responsive-default-view" in principle_ids
 assert "page-kind" in principle_ids
 assert "visual-budget" in principle_ids
 assert "compare-kind-first" in principle_ids
+assert "action-surface-parity" in principle_ids
+assert "interaction-capability-truth" in principle_ids
+assert "runtime-provenance-visible" in principle_ids
+assert "observation-currency" in principle_ids
 assert "view-switch-create-last" not in principle_ids
 
 profiles = standard.get("page_profiles") or {}

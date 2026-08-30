@@ -1,7 +1,7 @@
 {
   "$schema": "./schemas/gui-dsl.schema.v1.json",
   "id": "wellmanifest/gui",
-  "version": "1.4.0",
+  "version": "1.5.0",
   "title": "Universal GUI DSL & Verification Contract Standard",
   "status": "canonical",
   "standardOwner": "wellmanifest",
@@ -72,6 +72,22 @@
       {
         "id": "RULE_VISUAL_BUDGET",
         "description": "Observed font/color/size counts MUST stay within page_profiles[kind].visualBudgets."
+      },
+      {
+        "id": "RULE_ACTION_SURFACE_PARITY",
+        "description": "A visible action or shortcut MUST resolve through the same versioned action registry as dispatch; do not publish inert controls or separately authored copies."
+      },
+      {
+        "id": "RULE_INTERACTION_CAPABILITY_TRUTH",
+        "description": "Do not advertise keyboard, pointer, arrow, completion, or submit behavior unless the active input driver proves that capability."
+      },
+      {
+        "id": "RULE_RUNTIME_PROVENANCE_VISIBLE",
+        "description": "A runtime surface MUST NOT present an unknown, dirty, detached, or non-canonical source as the current released implementation."
+      },
+      {
+        "id": "RULE_OBSERVATION_CURRENCY",
+        "description": "Cached or mixed-source observations MUST NOT be labelled current without source identity, observation time, and explicit freshness."
       }
     ]
   },

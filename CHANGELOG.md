@@ -1,5 +1,15 @@
 # Changelog
 
+## [1.5.0] - 2026-08-30
+### Added
+- Negative action-surface invariants: visible controls must resolve and dispatch
+  from one versioned registry; separately authored presentation and execution
+  lists are non-conformant.
+- Capability-truth rule for keyboard, pointer, completion, arrow, and submit
+  hints.
+- Bounded runtime-provenance and observation-currency rules so stale checkouts,
+  caches, and mixed-source projections are not presented as canonical/current.
+
 ## [1.4.0] - 2026-08-18
 ### Fixed
 - `infer_kind`: a page with a form and `contact`/`kontakt` in the URL or title
