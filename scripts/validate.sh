@@ -139,4 +139,6 @@ grep -q 'ADOPT: wellmanifest/gui' "$scenario" || fail "TestQL example missing AD
 grep -q 'SET gui_driver' "$scenario" || fail "TestQL example missing gui_driver"
 grep -q 'section-add-button' "$scenario" || fail "TestQL example missing identities-style Add button assert"
 
+bash "$root/scripts/test-entrypoint.sh"
+
 echo "validated $(cat VERSION)"

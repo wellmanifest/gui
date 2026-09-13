@@ -48,3 +48,9 @@ Adopters should keep a thin copy or symlink under their testkit that cites:
 ```
 
 Do not restate principles in the TestQL file; assert behavior against the HOME pack.
+
+## Execution status
+
+The HOME pack supplies the example at `examples/testql/gui-standardization.testql`; it does not install or execute a product TestQL runner. Both `./project.sh test` and `./project.sh testql` report `GUI-TESTQL-UNAVAILABLE` on stderr and exit with code 2. They never report a loaded or passing suite. An unavailable runner is a non-success result for automation.
+
+`./project.sh check` runs static contract, example and Python behavior checks. Those checks also exercise both test aliases and reject an accidental successful exit, a missing unavailable diagnostic or the previous false success text. This is an entrypoint regression test, not executed browser/TestQL coverage. Product testkits must run the scenario with their declared driver, propagate failed scenarios, and report success only after actual execution.
