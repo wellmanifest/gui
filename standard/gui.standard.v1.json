@@ -2,9 +2,9 @@
   "schema": "wellmanifest.gui/standard/v1",
   "$id": "https://wellmanifest.com/schemas/gui/standard/v1",
   "id": "wellmanifest/gui",
-  "version": 5,
+  "version": 6,
   "status": "canonical",
-  "updated": "2026-08-18",
+  "updated": "2026-08-30",
   "title": "GUI standardization (wellmanifest/gui)",
   "standardOwner": "wellmanifest",
   "placement": {
@@ -153,6 +153,26 @@
       "id": "compare-kind-first",
       "name": "Compare kind before tokens",
       "requirement": "wellmanifest.gui/page-compare/v1 sets comparable=same-kind|cross-kind|intent-mismatch. Cross-kind deltas are advisory (GUI-PAGE-KIND-002). Same-kind deltas are surface drift. Intent mismatch is not a visual-budget failure."
+    },
+    {
+      "id": "action-surface-parity",
+      "name": "Visible actions resolve and dispatch",
+      "requirement": "Do not render an action, shortcut, badge, menu item, link, or completion that cannot be resolved and dispatched by the active surface. Presentation, mnemonic resolution, completion, and dispatch MUST NOT be maintained as separately authored command lists. Unknown, duplicate, or ambiguous action identities fail closed; compatibility projections must derive from one versioned action registry."
+    },
+    {
+      "id": "interaction-capability-truth",
+      "name": "Hints describe active input capabilities",
+      "requirement": "Do not promise pointer clicks, letter shortcuts, arrow navigation, completion, submit expansion, or another interaction mode unless the active input driver supports and tests that mode. When capability detection is uncertain, present only the universally executable form."
+    },
+    {
+      "id": "runtime-provenance-visible",
+      "name": "Interface identifies its running source",
+      "requirement": "Do not present a dirty checkout, detached revision, unmerged branch, stale bundle, or unknown executable target as the canonical released interface. A diagnostic or operator-facing surface must expose bounded source provenance and distinguish released, development, and unknown posture without leaking filesystem secrets."
+    },
+    {
+      "id": "observation-currency",
+      "name": "Current state has freshness evidence",
+      "requirement": "Do not label cached, deduplicated, reconciled, or mixed-source data as current unless the projection carries source identity, observation time, and freshness posture. A terminal record MUST NOT remain actionable because one source or cache is stale; conflicts remain explicit until an authoritative reconciliation rule resolves them."
     }
   ],
   "page_kinds": ["landing", "marketplace", "article", "form", "auth", "panel", "unknown"],

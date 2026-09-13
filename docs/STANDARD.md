@@ -3,7 +3,7 @@
 Authority: **propose-only**. Adopters implement; this pack does not grant
 production mutation or merge rights.
 
-Pack version **1.4.0** (standard document version 5).
+Pack version **1.5.0** (standard document version 6).
 
 ## Objects
 
@@ -49,6 +49,16 @@ Pack version **1.4.0** (standard document version 5).
     for allowed tokens).
 13. **Compare kind, then landmarks, then tokens.** Cross-kind deltas are
     advisory. Do not score marketplace vs landing as panel drift.
+14. **Visible means executable.** Do not render actions, shortcuts, badges,
+    links, or completions that the active resolver and dispatcher cannot execute.
+    Do not author separate command lists for presentation and execution.
+15. **Hints are capability claims.** Do not advertise letters, arrows, clicks,
+    completion, or submit expansion unless the active input driver proves them.
+16. **Runtime identity is part of operator UX.** Do not present dirty, detached,
+    stale, unmerged, or unknown source as the canonical released interface.
+17. **“Current” requires currency evidence.** Cached or mixed-source projections
+    carry source, observation time, and freshness; stale terminal records do not
+    remain actionable merely because one cache still contains them.
 
 Superseded: create/import as last mode *inside* the view-switch (legacy
 wellmanifest/gui note). Superseded: tablet default `view=list` and encoding
