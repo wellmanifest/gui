@@ -1,0 +1,24 @@
+{
+  "schema": "new-project.intent/v3",
+  "ticket": "ticket-003",
+  "summary": "Report unavailable TestQL execution instead of false success",
+  "workstream": "application",
+  "allowedPaths": [
+    ".gitignore",
+    "project.sh",
+    "scripts/validate.sh",
+    "scripts/test-entrypoint.sh",
+    "README.md",
+    "docs/TESTQL.md",
+    "project/ticket-003/**"
+  ],
+  "forbiddenPaths": [
+    ".env",
+    "secrets/**"
+  ],
+  "delivery": {
+    "acceptedBaseSha": "d82527ffa6a6aa5ba3a4cb9a408151eeda86c57a",
+    "targetBranch": "main",
+    "outcome": "Both test aliases return a clear nonzero unavailable result; static validation checks their failure behavior. Independent OneDev and Validator publication remain required."
+  }
+}

@@ -25,12 +25,12 @@ case "$cmd" in
     echo "✔ Autogrammar specification validated ($repo_root/spec/autogrammar-gui.spec.json)"
     ;;
   test|testql)
-    echo "[wellmanifest/gui] Verifying TestQL assertions..."
-    echo "✔ TestQL suite loaded ($repo_root/tests/testql/gui-standardization.testql)"
-    echo "✔ All GUI contract assertions passed."
+    echo "GUI-TESTQL-UNAVAILABLE: this pack provides a binding and example, but no executable TestQL runner." >&2
+    echo "Run product scenarios in the adopter testkit. For static contract checks, use: $0 check" >&2
+    exit 2
     ;;
   *)
-    echo "Usage: $0 [check|test]"
+    echo "Usage: $0 [check|validate|test|testql]"
     exit 1
     ;;
 esac
