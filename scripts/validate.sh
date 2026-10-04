@@ -25,8 +25,8 @@ schema = json.loads((root / "schemas/gui-dsl.schema.json").read_text())
 page_schema = json.loads((root / "schemas/gui-page.schema.json").read_text())
 example = json.loads((root / "examples/panel.gui.json").read_text())
 
-assert version == "1.5.0", version
-assert standard.get("version") == 6
+assert version == "1.6.0", version
+assert standard.get("version") == 7
 assert standard.get("placement", {}).get("home") == "wellmanifest"
 assert standard.get("placement", {}).get("shape") == "domain_pack"
 assert standard.get("authority") == "propose-only"

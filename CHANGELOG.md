@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.6.0] - 2026-10-04
+### Added
+- **Conversational stream purity and process isolation** principle: chat streams must not be polluted with raw process stdout/stderr; executions route to dedicated Process/Terminal views.
+- **Bidirectional workspace URL state synchronization** principle: multi-pane workspaces deterministically serialize layout, window order, pane views, focus, dialog, active tab, user query, target device, and action telemetry via `replaceState`.
+- **Window media recording controls** principle: standard Play/Stop recording controls on pane headers and window tools menus for WebM capture.
+- Expanded `url_query_contract.params` with `layout`, `order`, `panes`, `focus`, `dialog`, `q`, `user`, `targetPane`, `targetEnv`, `act`, `lastClick`.
+
 ## [1.5.0] - 2026-08-30
 ### Added
 - Negative action-surface invariants: visible controls must resolve and dispatch
