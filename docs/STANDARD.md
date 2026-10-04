@@ -59,6 +59,21 @@ Pack version **1.5.0** (standard document version 6).
 17. **“Current” requires currency evidence.** Cached or mixed-source projections
     carry source, observation time, and freshness; stale terminal records do not
     remain actionable merely because one cache still contains them.
+18. **Conversational process isolation.** In workspaces featuring chat or
+    natural-language agent palettes, the conversation log is strictly reserved for
+    dialogue turns and structured URI/URN receipts. Subprocesses and shell commands
+    (`!cmd`) must not stream stdout/stderr into the chat stream; their execution and
+    terminal screens are isolated into dedicated artifact tabs (`.pal-term`).
+19. **Bidirectional workspace URL state synchronization.** Multi-pane and dashboard
+    workspaces deterministically serialize their entire operational state—layout,
+    window ordering, pane views, focus, dialog/palette, active tab, user query,
+    target device, and interaction events—via `history.replaceState` into canonical
+    query parameters (`layout`, `order`, `panes`, `focus`, `dialog`, `tab`, `q`,
+    `user`, `targetPane`, `act`), and opening/reloading that URL must faithfully
+    recreate the identical state.
+20. **Window media recording controls.** Panel headers and window tools menus expose
+    standardized Play/Stop recording controls for single-window or whole-workspace
+    WebM video capture, producing immutable media artifacts bound to registered URNs.
 
 Superseded: create/import as last mode *inside* the view-switch (legacy
 wellmanifest/gui note). Superseded: tablet default `view=list` and encoding

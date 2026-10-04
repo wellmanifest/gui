@@ -1,7 +1,7 @@
 {
   "$schema": "./schemas/gui-dsl.schema.v1.json",
   "id": "wellmanifest/gui",
-  "version": "1.5.0",
+  "version": "1.6.0",
   "title": "Universal GUI DSL & Verification Contract Standard",
   "status": "canonical",
   "standardOwner": "wellmanifest",

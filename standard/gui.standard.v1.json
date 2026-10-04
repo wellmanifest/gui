@@ -2,9 +2,9 @@
   "schema": "wellmanifest.gui/standard/v1",
   "$id": "https://wellmanifest.com/schemas/gui/standard/v1",
   "id": "wellmanifest/gui",
-  "version": 6,
+  "version": 7,
   "status": "canonical",
-  "updated": "2026-08-30",
+  "updated": "2026-10-04",
   "title": "GUI standardization (wellmanifest/gui)",
   "standardOwner": "wellmanifest",
   "placement": {
@@ -173,6 +173,21 @@
       "id": "observation-currency",
       "name": "Current state has freshness evidence",
       "requirement": "Do not label cached, deduplicated, reconciled, or mixed-source data as current unless the projection carries source identity, observation time, and freshness posture. A terminal record MUST NOT remain actionable because one source or cache is stale; conflicts remain explicit until an authoritative reconciliation rule resolves them."
+    },
+    {
+      "id": "conversational-process-isolation",
+      "name": "Conversational stream purity and process isolation",
+      "requirement": "In interactive workspaces with chat or natural-language agent palettes, the conversation stream is strictly reserved for dialogue turns and concise structured execution receipts. Subprocesses and shell commands must not dump stdout/stderr into the chat log; outputs and interactive CLI terminals route to a dedicated Process/Terminal Artifact View referenced by RFC 3986 Action URI (process://) and Resource URN (urn:...)."
+    },
+    {
+      "id": "workspace-url-state-sync",
+      "name": "Bidirectional workspace URL state synchronization",
+      "requirement": "Multi-pane and dashboard workspaces deterministically serialize their operational state (layout, window ordering, pane views, focus, dialog, active tab, user query, target device, and interaction telemetry) via history.replaceState into canonical query parameters, and navigating to or reloading that URL faithfully reconstructs the identical visual and operational state."
+    },
+    {
+      "id": "window-media-recording",
+      "name": "Window media recording controls",
+      "requirement": "Panels expose standardized recording controls (Play/Stop toggle on headers and window tools menus) for window or workspace WebM video capture, binding results to registered media URNs."
     }
   ],
   "page_kinds": ["landing", "marketplace", "article", "form", "auth", "panel", "unknown"],
@@ -230,7 +245,10 @@
         "site-footer",
         "page-kind",
         "page-kind-match",
-        "visual-budget"
+        "visual-budget",
+        "workspace-url-state-sync",
+        "conversational-process-isolation",
+        "window-media-recording"
       ]
     },
     "unknown": {
@@ -265,7 +283,18 @@
       "org": "Project/collection filter — not the tenant",
       "registry": "Domain filter under a tab (organization: clients|contacts|contracts; connectors legacy: mcp|a2a when not top-level tabs). support is retired.",
       "tag": "Active tag filter",
-      "filter": "Free-text filter"
+      "filter": "Free-text filter",
+      "layout": "Multi-pane window layout (cols|rows|grid|zoom)",
+      "order": "Comma-separated list of pane identifiers (A,B,C,D)",
+      "panes": "Pane-to-view URI mappings (A:shell,B:logs,C:apps)",
+      "focus": "Identifier of currently focused pane",
+      "dialog": "Active modal sheet or command palette layout (chat|classic)",
+      "q": "Active command, prompt, or search query string",
+      "user": "Raw user input text alias for query",
+      "targetPane": "Execution target pane identifier",
+      "targetEnv": "Execution host, node, or mesh target",
+      "act": "Last user or agent action telemetry trace",
+      "lastClick": "Human-readable locator of last clicked element"
     }
   },
   "testql_contract": {
