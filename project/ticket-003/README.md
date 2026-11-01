@@ -1,6 +1,6 @@
 # Ticket 003 — Truthful TestQL status
 
-- Status: IN_PROGRESS
+- **Status**: DONE
 - Issue: https://github.com/wellmanifest/gui/issues/3
 - Owner: codex-gui-local-profile-20260913
 
