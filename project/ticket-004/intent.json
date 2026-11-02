@@ -163,7 +163,7 @@
     "standardAdoption": {
       "sourceRepository": "wellmanifest/new-project",
       "fromRevision": null,
-      "toRevision": "82fd58dbe175f90146ed49c07fa86fac91de00d5"
+      "toRevision": "3926cecf965cd03a39cc992aa40bf82ae2e97a13"
     },
     "budgets": {
       "maxImplementationFiles": 9,
